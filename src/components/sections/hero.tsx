@@ -6,12 +6,12 @@ const chips = ["Content", "Social", "Paid", "Web", "Cape Town SMEs"];
 
 export function Hero() {
   return (
-    <section className="relative border-b border-white/10">
+    <section className="relative overflow-hidden border-b border-white/10">
       <Parallax
-        className="pointer-events-none absolute top-6 right-5 h-10 w-11 text-white/50 sm:top-8 sm:right-8"
+        className="pointer-events-none absolute top-6 right-5 sm:top-8 sm:right-8"
         factor={0.2}
       >
-        <TwinMark title="Two Element" />
+        <TwinMark className="h-10 w-11 text-white/50" title="Two Element" />
       </Parallax>
       <div className="relative mx-auto flex min-h-[calc(100svh-4.5rem)] w-full max-w-[1120px] items-center px-5 py-24 sm:px-8 lg:py-32">
         <div className="max-w-4xl">
