@@ -17,7 +17,7 @@ export function Logo({
         className,
       )}
     >
-      <TwinMark className="h-8 w-9 shrink-0 transition-transform duration-500 group-hover:translate-x-0.5" />
+      <TwinMark className="h-6 w-7 shrink-0 transition-transform duration-500 group-hover:translate-x-0.5" />
       <span className="flex flex-col leading-none">
         <span className="font-heading text-[0.7rem] font-semibold tracking-[0.32em]">
           TWO ELEMENT

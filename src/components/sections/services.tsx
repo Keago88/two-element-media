@@ -1,6 +1,5 @@
 import { Reveal } from "@/components/reveal";
 import { SectionHeading } from "@/components/section-heading";
-import { TwinMark } from "@/components/twin-mark";
 import { services } from "@/lib/site";
 
 export function Services() {
@@ -18,13 +17,10 @@ export function Services() {
         <div className="mt-14 grid gap-4 md:grid-cols-2">
           {services.map((service, index) => (
             <Reveal key={service.id} delayMs={index * 80}>
-              <article className="group relative flex h-full flex-col border border-white/12 bg-white/[0.02] p-7 transition-colors hover:border-white/30 hover:bg-white/[0.04] sm:p-8">
-                <div className="flex items-start justify-between gap-4">
-                  <p className="font-heading text-xs tracking-[0.24em] text-muted-foreground uppercase">
-                    {service.kicker}
-                  </p>
-                  <TwinMark className="h-7 w-8 opacity-70 transition-opacity group-hover:opacity-100" />
-                </div>
+              <article className="relative flex h-full flex-col border border-white/12 bg-white/[0.02] p-7 transition-colors hover:border-white/30 hover:bg-white/[0.04] sm:p-8">
+                <p className="font-heading text-xs tracking-[0.24em] text-muted-foreground uppercase">
+                  {service.kicker}
+                </p>
                 <h3 className="font-heading mt-8 text-2xl font-semibold tracking-tight sm:text-3xl">
                   {service.title}
                 </h3>
