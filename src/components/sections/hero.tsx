@@ -1,24 +1,22 @@
+import { Parallax } from "@/components/parallax";
 import { TwinMark } from "@/components/twin-mark";
 import { Button } from "@/components/ui/button";
 
-const ribbon = [
-  "Content systems",
-  "Social calendars",
-  "Paid media",
-  "Web & creative",
-  "Photo direction",
-  "Short-form film",
-  "Cape Town SMEs",
-];
+const chips = ["Content", "Social", "Paid", "Web", "Cape Town SMEs"];
 
 export function Hero() {
   return (
     <section className="relative overflow-hidden border-b border-white/10">
-      <TwinMark
-        className="pointer-events-none absolute top-6 right-5 h-10 w-11 text-white/35 sm:top-8 sm:right-8"
-        title="Two Element"
-      />
-      <div className="relative mx-auto flex min-h-[calc(100svh-4.5rem)] w-full max-w-[1120px] items-center px-5 py-20 sm:px-8 lg:py-24">
+      <Parallax
+        className="pointer-events-none absolute top-6 right-5 sm:top-8 sm:right-8"
+        factor={0.2}
+      >
+        <TwinMark
+          className="h-10 w-11 text-white/50"
+          title="Two Element"
+        />
+      </Parallax>
+      <div className="relative mx-auto flex min-h-[calc(100svh-4.5rem)] w-full max-w-[1120px] items-center px-5 py-24 sm:px-8 lg:py-32">
         <div className="max-w-4xl">
           <p className="animate-enter font-heading text-xs font-semibold tracking-[0.32em] text-muted-foreground uppercase">
             Cape Town digital / media studio
@@ -28,7 +26,7 @@ export function Hero() {
             <br />
             One studio.
           </h1>
-          <p className="animate-enter-late mt-7 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
+          <p className="animate-enter-late measure mt-7 text-base leading-relaxed text-muted-foreground sm:text-lg">
             Two Element Media makes what local businesses get judged on —
             content, social, paid media, and web. Sharp, consistent, ready to
             ship.
@@ -47,12 +45,15 @@ export function Hero() {
         </div>
       </div>
       <div className="relative border-t border-white/10">
-        <div className="marquee-mask overflow-hidden py-4">
-          <div className="animate-marquee flex w-max gap-10 text-xs tracking-[0.28em] text-muted-foreground uppercase">
-            {[...ribbon, ...ribbon].map((item, index) => (
-              <span key={`${item}-${index}`}>{item}</span>
-            ))}
-          </div>
+        <div className="mx-auto flex w-full max-w-[1120px] flex-wrap items-center gap-2.5 px-5 py-5 sm:px-8">
+          {chips.map((chip) => (
+            <span
+              key={chip}
+              className="border border-white/15 px-3.5 py-1.5 text-[0.68rem] tracking-[0.22em] text-muted-foreground uppercase"
+            >
+              {chip}
+            </span>
+          ))}
         </div>
       </div>
     </section>
