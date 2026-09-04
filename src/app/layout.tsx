@@ -1,20 +1,24 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import { Geist, Syne } from "next/font/google";
+import { DM_Sans, Syne } from "next/font/google";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { site } from "@/lib/site";
 import "./globals.css";
 
-const geist = Geist({
+const dmSans = DM_Sans({
   subsets: ["latin"],
-  variable: "--font-geist-sans",
+  variable: "--font-dm-sans",
+  display: "swap",
+  preload: true,
 });
 
 const syne = Syne({
   subsets: ["latin"],
   variable: "--font-syne",
   weight: ["500", "600", "700", "800"],
+  display: "swap",
+  preload: true,
 });
 
 export const metadata: Metadata = {
@@ -68,9 +72,11 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html
       lang="en-ZA"
-      className={`dark ${geist.variable} ${syne.variable} h-full scroll-smooth antialiased`}
+      className={`dark ${dmSans.variable} ${syne.variable} h-full scroll-smooth antialiased`}
     >
-      <body className="flex min-h-full flex-col bg-background text-foreground">
+      <body
+        className={`${dmSans.variable} ${syne.variable} ${dmSans.className} flex min-h-full flex-col bg-background text-foreground`}
+      >
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

@@ -14,7 +14,11 @@ export function Contact({ sent = false }: { sent?: boolean }) {
             index="05"
             eyebrow="Contact"
             title="Tell us what has to move."
-            description="A form, an email, or WhatsApp. We reply from Cape Town, usually within one business day."
+            description={
+              whatsapp
+                ? "A form, an email, or WhatsApp. We reply from Cape Town, usually within one business day."
+                : "A form or an email. We reply from Cape Town, usually within one business day."
+            }
           />
           <dl className="mt-10 space-y-6 text-sm">
             <div>

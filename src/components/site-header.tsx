@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Menu } from "lucide-react";
 import { Logo } from "@/components/logo";
@@ -15,28 +14,12 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { mailtoHref, nav, whatsappHref } from "@/lib/site";
-import { cn } from "@/lib/utils";
 
 export function SiteHeader() {
-  const [scrolled, setScrolled] = useState(false);
   const whatsapp = whatsappHref();
 
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
   return (
-    <header
-      className={cn(
-        "sticky top-0 z-40 border-b transition-colors duration-300",
-        scrolled
-          ? "border-white/10 bg-black/85 backdrop-blur-md"
-          : "border-transparent bg-black/40 backdrop-blur-sm",
-      )}
-    >
+    <header className="sticky top-0 z-40 border-b border-white/10 bg-black">
       <div className="mx-auto flex h-16 w-full max-w-[1120px] items-center justify-between px-5 sm:h-[4.5rem] sm:px-8">
         <Logo />
         <nav
@@ -53,7 +36,13 @@ export function SiteHeader() {
             </Link>
           ))}
         </nav>
-        <div className="hidden items-center gap-2 md:flex">
+        <div className="hidden items-center gap-5 md:flex">
+          <a
+            href={mailtoHref()}
+            className="text-xs tracking-[0.16em] text-muted-foreground uppercase transition-colors hover:text-foreground"
+          >
+            Email the studio
+          </a>
           <Button
             asChild
             variant="outline"
@@ -112,7 +101,7 @@ export function SiteHeader() {
               ) : (
                 <SheetClose asChild>
                   <Button asChild variant="outline" className="h-11 rounded-none">
-                    <a href={mailtoHref()}>Email us</a>
+                    <a href={mailtoHref()}>Email the studio</a>
                   </Button>
                 </SheetClose>
               )}
