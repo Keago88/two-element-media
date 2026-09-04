@@ -33,22 +33,18 @@ export function AnimGrow() {
       <g className="work-grow-mark">
         <g transform="translate(240 180) scale(5.15) translate(-24 -20)">
           <polygon
-            className="work-stroke"
             points={mark.left}
             stroke="currentColor"
             strokeWidth="1.15"
             strokeLinejoin="miter"
             vectorEffect="non-scaling-stroke"
-            pathLength={1}
           />
           <polygon
-            className="work-stroke"
             points={mark.right}
             stroke="currentColor"
             strokeWidth="1.15"
             strokeLinejoin="miter"
             vectorEffect="non-scaling-stroke"
-            pathLength={1}
           />
         </g>
       </g>

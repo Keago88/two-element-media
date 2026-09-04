@@ -32,7 +32,6 @@ export function WorkScrub({ children, className }: WorkScrubProps) {
 
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
     let frame = 0;
-    let listening = false;
 
     const setP = (value: number) => {
       node.style.setProperty("--p", value.toFixed(4));
@@ -40,7 +39,6 @@ export function WorkScrub({ children, className }: WorkScrubProps) {
 
     const rest = () => {
       setP(MID);
-      node.style.removeProperty("will-change");
     };
 
     const measure = () => {
@@ -62,62 +60,34 @@ export function WorkScrub({ children, className }: WorkScrubProps) {
       frame = window.requestAnimationFrame(measure);
     };
 
-    const start = () => {
-      if (listening) return;
-      listening = true;
-      window.addEventListener("scroll", queue, { passive: true });
-      document.addEventListener("scroll", queue, { passive: true, capture: true });
-      measure();
-    };
-
-    const stop = () => {
-      if (!listening) return;
-      listening = false;
-      window.removeEventListener("scroll", queue);
-      document.removeEventListener("scroll", queue, { capture: true });
-      if (frame) {
-        window.cancelAnimationFrame(frame);
-        frame = 0;
-      }
-      node.style.removeProperty("will-change");
-    };
-
     const onReduceChange = () => {
-      if (reduceMotion.matches) {
-        stop();
-        rest();
-        return;
-      }
-      measure();
+      if (reduceMotion.matches) rest();
+      else measure();
     };
 
     const io = new IntersectionObserver(
       ([entry]) => {
-        if (reduceMotion.matches) {
-          rest();
-          return;
-        }
-        if (entry.isIntersecting) start();
-        else stop();
+        if (entry.isIntersecting) measure();
       },
-      { rootMargin: "15% 0px" },
+      { rootMargin: "40% 0px" },
     );
 
-    if (reduceMotion.matches) {
-      rest();
-    } else {
-      measure();
-    }
+    if (reduceMotion.matches) rest();
+    else measure();
 
     io.observe(node);
+    window.addEventListener("scroll", queue, { passive: true });
+    document.addEventListener("scroll", queue, { passive: true, capture: true });
     window.addEventListener("resize", queue);
     reduceMotion.addEventListener("change", onReduceChange);
 
     return () => {
       io.disconnect();
-      stop();
+      window.removeEventListener("scroll", queue);
+      document.removeEventListener("scroll", queue, { capture: true });
       window.removeEventListener("resize", queue);
       reduceMotion.removeEventListener("change", onReduceChange);
+      if (frame) window.cancelAnimationFrame(frame);
     };
   }, []);
 

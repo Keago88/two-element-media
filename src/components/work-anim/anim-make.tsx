@@ -13,11 +13,11 @@ export function AnimMake() {
       overflow="visible"
       aria-hidden="true"
     >
-      <g className="work-make-guides" stroke="currentColor" strokeWidth="0.6">
-        <line x1="40" y1="180" x2="440" y2="180" />
-        <line x1="240" y1="28" x2="240" y2="332" />
-        <line x1="72" y1="52" x2="408" y2="308" />
-        <line x1="408" y1="52" x2="72" y2="308" />
+      <g className="work-make-guides" stroke="currentColor" strokeWidth="0.7">
+        <path d="M46 38h22M46 38v22" />
+        <path d="M434 38h-22M434 38v22" />
+        <path d="M46 322h22M46 322v-22" />
+        <path d="M434 322h-22M434 322v-22" />
       </g>
 
       <g className="work-make-shards" stroke="currentColor" strokeWidth="1" strokeLinejoin="miter">
