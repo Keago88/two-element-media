@@ -182,6 +182,164 @@
   }
 }
 
+/* Work studio animations — --p (0–1) is set by WorkScrub while a band crosses the viewport. */
+.work-scrub {
+  --p: 0.62;
+  --motion: 1;
+}
+
+.work-anim {
+  transform-box: fill-box;
+}
+
+.work-stroke {
+  stroke-dasharray: 1;
+  stroke-dashoffset: calc(1 - var(--p));
+}
+
+.work-stroke-late {
+  stroke-dasharray: 1;
+  stroke-dashoffset: calc(1.2 - var(--p) * 1.35);
+}
+
+.work-make-guides {
+  opacity: calc(0.16 * (1 - var(--p)));
+}
+
+.work-make-left {
+  transform-box: fill-box;
+  transform-origin: 55% 60%;
+  transform: translate(
+      calc((1 - var(--p)) * var(--motion) * -58px),
+      calc((1 - var(--p)) * var(--motion) * 26px)
+    )
+    rotate(calc((1 - var(--p)) * var(--motion) * -18deg));
+  opacity: calc(0.28 + var(--p) * 0.72);
+}
+
+.work-make-right {
+  transform-box: fill-box;
+  transform-origin: 45% 45%;
+  transform: translate(
+      calc((1 - var(--p)) * var(--motion) * 56px),
+      calc((1 - var(--p)) * var(--motion) * -22px)
+    )
+    rotate(calc((1 - var(--p)) * var(--motion) * 16deg));
+  opacity: calc(0.28 + var(--p) * 0.72);
+}
+
+.work-make-shard-a {
+  transform-box: fill-box;
+  transform-origin: center;
+  transform: translate(
+    calc(var(--p) * var(--motion) * 78px),
+    calc(var(--p) * var(--motion) * 64px)
+  );
+  opacity: calc(0.55 * (1 - var(--p)));
+}
+
+.work-make-shard-b {
+  transform-box: fill-box;
+  transform-origin: center;
+  transform: translate(
+    calc(var(--p) * var(--motion) * -86px),
+    calc(var(--p) * var(--motion) * 48px)
+  );
+  opacity: calc(0.5 * (1 - var(--p)));
+}
+
+.work-make-shard-c {
+  transform-box: fill-box;
+  transform-origin: center;
+  transform: translate(
+    calc(var(--p) * var(--motion) * 8px),
+    calc(var(--p) * var(--motion) * -92px)
+  );
+  opacity: calc(0.5 * (1 - var(--p)));
+}
+
+.work-ship-grid {
+  transform-box: fill-box;
+  transform-origin: center;
+  transform: scale(calc(1 - var(--p) * var(--motion) * 0.28));
+  opacity: calc(0.22 + (1 - var(--p)) * 0.38);
+}
+
+.work-ship-head {
+  opacity: 0.7;
+}
+
+.work-ship-lift {
+  transform-box: fill-box;
+  transform-origin: center;
+  transform: translate(
+      calc(var(--p) * var(--motion) * 18px),
+      calc(var(--p) * var(--motion) * -36px)
+    )
+    rotate(calc(var(--p) * var(--motion) * 8deg));
+  opacity: calc(0.7 * (1 - var(--p)));
+}
+
+.work-ship-mark-left,
+.work-ship-mark-right {
+  transform-box: fill-box;
+  transform-origin: center;
+  opacity: calc(0.15 + var(--p) * 0.85);
+}
+
+.work-grow-orbits {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.work-grow-orbit-a {
+  stroke-dasharray: 0.72 0.28;
+  stroke-dashoffset: calc(var(--p) * -0.35);
+  opacity: calc(0.18 + var(--p) * 0.22);
+  transform-box: fill-box;
+  transform-origin: center;
+  transform: rotate(calc(var(--p) * var(--motion) * 18deg));
+}
+
+.work-grow-orbit-b {
+  stroke-dasharray: 0.58 0.42;
+  stroke-dashoffset: calc(var(--p) * -0.5);
+  opacity: calc(0.12 + var(--p) * 0.28);
+  transform-box: fill-box;
+  transform-origin: center;
+  transform: rotate(calc(var(--p) * var(--motion) * -22deg));
+}
+
+.work-grow-orbit-c {
+  stroke-dasharray: 0.4 0.6;
+  stroke-dashoffset: calc((1 - var(--p)) * 0.55);
+  opacity: calc(0.08 + var(--p) * 0.32);
+  transform-box: fill-box;
+  transform-origin: center;
+  transform: rotate(calc(var(--p) * var(--motion) * 12deg));
+}
+
+.work-grow-ticks {
+  opacity: calc(0.12 + var(--p) * 0.4);
+}
+
+.work-grow-mark {
+  transform-box: view-box;
+  transform-origin: 240px 180px;
+  transform: scale(calc(0.7 + var(--p) * 0.38))
+    rotate(calc((var(--p) - 0.5) * var(--motion) * 8deg));
+}
+
+@media (max-width: 767px) {
+  .work-scrub {
+    --motion: 0.4;
+  }
+
+  .work-anim {
+    opacity: 0.55;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .animate-enter,
   .animate-enter-delayed,
@@ -192,6 +350,16 @@
 
   [data-parallax] {
     transform: none !important;
+  }
+
+  .work-scrub {
+    --p: 0.62;
+    --motion: 0;
+  }
+
+  .work-anim,
+  .work-anim * {
+    transition: none !important;
   }
 }
 

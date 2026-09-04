@@ -81,33 +81,30 @@ export const steps = [
   },
 ] as const;
 
-export const cases = [
+export const workIntro = {
+  title: "How the work moves.",
+  description:
+    "Three studio animations — craft, systems, and growth. Not client case studies.",
+} as const;
+
+export const studioAnimations = [
   {
-    sample: true,
-    client: "Atlantic Stay",
-    sector: "Boutique guest house · Camps Bay",
-    title: "A quieter feed that actually books rooms",
-    outcome:
-      "Rebuilt the social calendar around real rooms, weather, and midweek offers — the house as it is, not a pile of sunset filler.",
-    line: "Sample story — a quieter feed shaped to book midweek stays.",
+    id: "make",
+    title: "Make",
+    caption: "Words, stills, and film locking into one mark.",
+    label: "Studio animation",
   },
   {
-    sample: true,
-    client: "Roast & Line",
-    sector: "Coffee roastery · Observatory",
-    title: "Content plus ads for wholesale and the queue",
-    outcome:
-      "A photo system for bags and the bar, then a small Meta budget aimed at cafés within 12 km — wholesale without starving the retail page.",
-    line: "Sample story — one campaign, two jobs: the queue and the trade.",
+    id: "ship",
+    title: "Ship",
+    caption: "Calendars and campaigns that actually leave the building.",
+    label: "Studio animation",
   },
   {
-    sample: true,
-    client: "Claremont Care",
-    sector: "Private clinic · Claremont",
-    title: "A site people can use on a phone in the car park",
-    outcome:
-      "New service pages, Google Business photos, and search ads for two treatments — fewer ‘how do I book?’ calls, more form bookings.",
-    line: "Sample story — a clinic site that answers the car-park question.",
+    id: "grow",
+    title: "Grow",
+    caption: "The same system, compounding week to week.",
+    label: "Studio animation",
   },
 ] as const;
 
