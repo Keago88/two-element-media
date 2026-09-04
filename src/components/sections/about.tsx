@@ -1,3 +1,4 @@
+import { Parallax } from "@/components/parallax";
 import { Reveal } from "@/components/reveal";
 import { SectionHeading } from "@/components/section-heading";
 
@@ -10,6 +11,7 @@ export function About() {
             index="04"
             eyebrow="Studio"
             title="Media does the work people see. Labs stays in the wings."
+            titleFactor={0.12}
           />
         </Reveal>
         <Reveal delayMs={80}>
@@ -19,9 +21,11 @@ export function About() {
               SMEs. We sit close to the work: briefs in English, files on time,
               a monthly note that an owner can actually read.
             </p>
-            <p className="mt-8 text-sm leading-relaxed text-muted-foreground">
-              Labs stays in the wings — product & tooling when a brief needs it.
-            </p>
+            <Parallax factor={0.06}>
+              <p className="mt-8 text-sm leading-relaxed text-muted-foreground">
+                Labs stays in the wings — product & tooling when a brief needs it.
+              </p>
+            </Parallax>
           </div>
         </Reveal>
       </div>

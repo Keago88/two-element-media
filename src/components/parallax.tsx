@@ -14,24 +14,34 @@ import { cn } from "@/lib/utils";
 type ParallaxProps = {
   children: ReactNode;
   className?: string;
-  /** Scroll lag. Use ~0.15–0.25 for the hero mark. */
+  /** Scroll lag. Hero mark ~0.2; in-page type ~0.08–0.22. */
   factor?: number;
-  /** Cap translateY in px. Use 8–12 for the Sample stamp. */
+  /** Cap translateY in px. Stamps / numbers / hairline ~6–14. */
   max?: number;
 };
 
 type ParallaxNode = HTMLElement | SVGElement;
+
+/** Quiet ceiling for uncapped in-page (below-fold) factor motion. */
+const PAGE_FACTOR_CAP = 14;
 
 function scrollY() {
   return window.scrollY || document.documentElement.scrollTop || 0;
 }
 
 /**
- * Applies translateY directly on the child (TwinMark SVG / Sample stamp)
+ * Applies translateY directly on the child (mark / type / hairline / stamp)
  * so DevTools shows the transform on the visible node — not a nested wrapper.
  *
  * Document origin is cached with transform temporarily cleared so measuring
  * the same node cannot feed back into the next frame.
+ *
+ * Modes (one system):
+ * - `max` set: element-relative progress, clamped to ±max
+ * - no `max`, origin in the first viewport: `scrollY * factor` (hero lag)
+ * - no `max`, below the fold: element-relative `factor`, capped at ±14px
+ *
+ * `rest()` clears transform for prefers-reduced-motion and max-width 767px.
  */
 export function Parallax({
   children,
@@ -80,8 +90,13 @@ export function Parallax({
         const span = Math.max(window.innerHeight / 2, 1);
         const t = (viewportCenter - center) / span;
         y = Math.max(-max, Math.min(max, t * max));
-      } else {
+      } else if (originTop < window.innerHeight) {
         y = yScroll * factor;
+      } else {
+        const center = originTop + originHeight / 2;
+        const viewportCenter = yScroll + window.innerHeight / 2;
+        y = (viewportCenter - center) * factor;
+        y = Math.max(-PAGE_FACTOR_CAP, Math.min(PAGE_FACTOR_CAP, y));
       }
 
       node.style.willChange = "transform";
