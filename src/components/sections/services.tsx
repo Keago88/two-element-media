@@ -1,3 +1,4 @@
+import { Parallax } from "@/components/parallax";
 import { Reveal } from "@/components/reveal";
 import { SectionHeading } from "@/components/section-heading";
 import { services } from "@/lib/site";
@@ -14,6 +15,7 @@ export function Services() {
             index="01"
             eyebrow="Capabilities"
             title="Four kinds of work. One team."
+            titleFactor={0.1}
             description="Pick what you need now. We do not sell a 12-product stack. If a brief needs software, Two Element Labs sits in — quietly."
           />
         </Reveal>
@@ -24,9 +26,11 @@ export function Services() {
                 <p className="font-heading text-xs tracking-[0.24em] text-muted-foreground uppercase">
                   {featured.kicker}
                 </p>
-                <h3 className="font-heading mt-6 text-4xl font-semibold tracking-tight sm:text-5xl md:text-6xl">
-                  {featured.title}
-                </h3>
+                <Parallax factor={0.12}>
+                  <h3 className="font-heading mt-6 text-4xl font-semibold tracking-tight sm:text-5xl md:text-6xl">
+                    {featured.title}
+                  </h3>
+                </Parallax>
                 <p className="measure mt-6 text-base leading-relaxed text-muted-foreground sm:text-lg">
                   {featured.body}
                 </p>
@@ -46,9 +50,11 @@ export function Services() {
                   <p className="font-heading text-[0.65rem] tracking-[0.24em] text-muted-foreground uppercase">
                     {service.kicker}
                   </p>
-                  <h3 className="font-heading mt-2 text-xl font-semibold tracking-tight sm:text-2xl">
-                    {service.title}
-                  </h3>
+                  <Parallax max={8}>
+                    <h3 className="font-heading mt-2 text-xl font-semibold tracking-tight sm:text-2xl">
+                      {service.title}
+                    </h3>
+                  </Parallax>
                   <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
                     {service.body}
                   </p>

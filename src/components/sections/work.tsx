@@ -23,7 +23,7 @@ export function Work() {
             className="relative flex min-h-[70vh] items-center overflow-hidden border-b border-white/10"
           >
             <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center justify-end overflow-visible pr-4 sm:pr-10">
-              <Parallax factor={0.12} max={10}>
+              <Parallax factor={0.12} max={12}>
                 <span
                   aria-hidden="true"
                   className="font-heading select-none text-[18vw] leading-none font-semibold tracking-[0.08em] text-white/[0.07] uppercase"
@@ -34,15 +34,19 @@ export function Work() {
             </div>
             <div className="relative mx-auto w-full max-w-[1120px] px-5 py-20 sm:px-8 sm:py-24">
               <Reveal>
-                <p className="font-heading text-5xl font-semibold tracking-tight text-balance sm:text-6xl md:text-7xl">
-                  {item.client}
-                </p>
+                <Parallax factor={0.06}>
+                  <p className="font-heading text-5xl font-semibold tracking-tight text-balance sm:text-6xl md:text-7xl">
+                    {item.client}
+                  </p>
+                </Parallax>
                 <p className="mt-4 text-sm tracking-[0.16em] text-muted-foreground uppercase">
                   {item.sector}
                 </p>
-                <h3 className="font-heading mt-10 max-w-2xl text-2xl font-semibold tracking-tight text-balance sm:text-3xl md:text-4xl">
-                  {item.title}
-                </h3>
+                <Parallax factor={0.1}>
+                  <h3 className="font-heading mt-10 max-w-2xl text-2xl font-semibold tracking-tight text-balance sm:text-3xl md:text-4xl">
+                    {item.title}
+                  </h3>
+                </Parallax>
                 <p className="measure mt-6 text-base leading-relaxed text-muted-foreground sm:text-lg">
                   {item.outcome}
                 </p>

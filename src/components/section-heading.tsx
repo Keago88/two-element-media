@@ -1,3 +1,4 @@
+import { Parallax } from "@/components/parallax";
 import { cn } from "@/lib/utils";
 
 export function SectionHeading({
@@ -6,21 +7,32 @@ export function SectionHeading({
   title,
   description,
   className,
+  titleFactor,
 }: {
   index: string;
   eyebrow: string;
   title: string;
   description?: string;
   className?: string;
+  /** Quiet scroll lag on the headline only. Bodies stay still. */
+  titleFactor?: number;
 }) {
+  const heading = (
+    <h2 className="font-heading mt-4 text-3xl font-semibold tracking-tight text-balance sm:text-4xl md:text-5xl">
+      {title}
+    </h2>
+  );
+
   return (
     <div className={cn("max-w-2xl", className)}>
       <p className="font-heading text-xs font-semibold tracking-[0.28em] text-muted-foreground uppercase">
         {index} — {eyebrow}
       </p>
-      <h2 className="font-heading mt-4 text-3xl font-semibold tracking-tight text-balance sm:text-4xl md:text-5xl">
-        {title}
-      </h2>
+      {typeof titleFactor === "number" ? (
+        <Parallax factor={titleFactor}>{heading}</Parallax>
+      ) : (
+        heading
+      )}
       {description ? (
         <p className="measure mt-5 text-base leading-relaxed text-muted-foreground sm:text-lg">
           {description}
