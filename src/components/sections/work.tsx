@@ -22,18 +22,16 @@ export function Work() {
             key={item.client}
             className="relative flex min-h-[70vh] items-center overflow-hidden border-b border-white/10"
           >
-            <Parallax
-              className="pointer-events-none absolute inset-y-0 right-0 flex items-center justify-end pr-4 sm:pr-10"
-              factor={0.12}
-              max={10}
-            >
-              <span
-                aria-hidden="true"
-                className="font-heading select-none text-[18vw] leading-none font-semibold tracking-[0.08em] text-white/[0.07] uppercase"
-              >
-                Sample
-              </span>
-            </Parallax>
+            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center justify-end overflow-visible pr-4 sm:pr-10">
+              <Parallax factor={0.12} max={10}>
+                <span
+                  aria-hidden="true"
+                  className="font-heading select-none text-[18vw] leading-none font-semibold tracking-[0.08em] text-white/[0.07] uppercase"
+                >
+                  Sample
+                </span>
+              </Parallax>
+            </div>
             <div className="relative mx-auto w-full max-w-[1120px] px-5 py-20 sm:px-8 sm:py-24">
               <Reveal>
                 <p className="font-heading text-5xl font-semibold tracking-tight text-balance sm:text-6xl md:text-7xl">
