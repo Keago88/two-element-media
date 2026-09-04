@@ -26,9 +26,9 @@ export default function TermsPage() {
           usage rights are agreed in writing after a brief.
         </p>
         <p>
-          Sample case studies on the homepage are labelled as samples. They
-          illustrate how we talk about work; they are not client testimonials
-          until replaced with named, approved stories.
+          Studio animations on the homepage are labelled as studio animations.
+          They show craft, systems, and growth — they are not client case
+          studies or testimonials.
         </p>
         <p>
           All original marks on this site — including the twin outlined
