@@ -35,8 +35,8 @@ export const services = [
   {
     id: "content",
     title: "Content",
-    kicker: "Words, stills, film",
-    body: "Scripts, articles, photo direction, and short-form video that sound like the business — not like a template. Built to reuse across web, social, and ads.",
+    kicker: "Words. Stills. Film.",
+    body: "Scripts, articles, photo direction, and short-form video that sound like the business.",
   },
   {
     id: "social",
@@ -48,7 +48,7 @@ export const services = [
     id: "paid",
     title: "Paid media",
     kicker: "Budgets with a job",
-    body: "Meta and Google campaigns sized for Cape Town SMEs. Clear offers, tight audiences, weekly notes on what ran and what to change. No vanity dashboards.",
+    body: "Meta and Google campaigns sized for Cape Town SMEs. Clear offers, tight audiences, weekly notes on what ran and what to change. Weekly notes you can act on.",
   },
   {
     id: "web",
@@ -67,12 +67,12 @@ export const steps = [
   {
     n: "02",
     title: "Frame",
-    body: "A short plan: channels, cadence, and the first pieces of work. You see the shape — not a 40-page deck.",
+    body: "A short plan — clear scope, clear next step.",
   },
   {
     n: "03",
     title: "Make",
-    body: "We write, shoot, design, and set up. You review in one place. Edits are expected; surprises are not.",
+    body: "We write, shoot, design, and set up. You review in one place. Edits welcome; surprises are not.",
   },
   {
     n: "04",
@@ -88,8 +88,8 @@ export const cases = [
     sector: "Boutique guest house · Camps Bay",
     title: "A quieter feed that actually books rooms",
     outcome:
-      "Rebuilt the social calendar around real rooms, weather, and midweek offers. Sample result: enquiry form traffic up, less generic sunset filler.",
-    metric: "Sample · +38% site enquiries in 90 days",
+      "Rebuilt the social calendar around real rooms, weather, and midweek offers — the house as it is, not a pile of sunset filler.",
+    line: "Sample story — a quieter feed shaped to book midweek stays.",
   },
   {
     sample: true,
@@ -97,8 +97,8 @@ export const cases = [
     sector: "Coffee roastery · Observatory",
     title: "Content plus ads for wholesale and the queue",
     outcome:
-      "Photo system for bags and the bar, then a small Meta budget aimed at cafés within 12 km. Sample result: wholesale leads without starving the retail page.",
-    metric: "Sample · 11 wholesale conversations from one campaign",
+      "A photo system for bags and the bar, then a small Meta budget aimed at cafés within 12 km — wholesale without starving the retail page.",
+    line: "Sample story — one campaign, two jobs: the queue and the trade.",
   },
   {
     sample: true,
@@ -106,8 +106,8 @@ export const cases = [
     sector: "Private clinic · Claremont",
     title: "A site people can use on a phone in the car park",
     outcome:
-      "New service pages, Google Business photos, and search ads for two treatments. Sample result: fewer ‘how do I book?’ calls, more form bookings.",
-    metric: "Sample · 2.4× booked forms vs previous quarter",
+      "New service pages, Google Business photos, and search ads for two treatments — fewer ‘how do I book?’ calls, more form bookings.",
+    line: "Sample story — a clinic site that answers the car-park question.",
   },
 ] as const;
 

@@ -4,7 +4,7 @@ import { SectionHeading } from "@/components/section-heading";
 export function About() {
   return (
     <section id="about" className="scroll-mt-24 border-b border-white/10">
-      <div className="mx-auto w-full max-w-[1120px] px-5 py-20 sm:px-8 sm:py-28">
+      <div className="section-y mx-auto w-full max-w-[1120px] px-5 sm:px-8">
         <Reveal>
           <SectionHeading
             index="04"
@@ -12,38 +12,18 @@ export function About() {
             title="Media does the work people see. Labs stays in the wings."
           />
         </Reveal>
-        <div className="mt-14 grid items-stretch gap-4 lg:grid-cols-2">
-          <Reveal>
-            <article className="h-full border border-white/12 p-8">
-              <p className="font-heading text-xs tracking-[0.24em] text-muted-foreground uppercase">
-                Two Element Media
-              </p>
-              <h3 className="font-heading mt-4 text-2xl font-semibold tracking-tight">
-                The agency
-              </h3>
-              <p className="mt-4 text-sm leading-relaxed text-muted-foreground sm:text-base">
-                Content, production, social, paid media, and web for Cape Town
-                SMEs. We sit close to the work: briefs in English, files on
-                time, a monthly note that an owner can actually read.
-              </p>
-            </article>
-          </Reveal>
-          <Reveal delayMs={100}>
-            <article className="h-full border border-white/12 bg-white/[0.03] p-8">
-              <p className="font-heading text-xs tracking-[0.24em] text-muted-foreground uppercase">
-                Two Element Labs
-              </p>
-              <h3 className="font-heading mt-4 text-2xl font-semibold tracking-tight">
-                The sister desk
-              </h3>
-              <p className="mt-4 text-sm leading-relaxed text-muted-foreground sm:text-base">
-                Product and tooling when a campaign needs something built —
-                a booking flow, a small app, a data job. Same people, different
-                brief. This site is Media. Ask for Labs only if you need it.
-              </p>
-            </article>
-          </Reveal>
-        </div>
+        <Reveal delayMs={80}>
+          <div className="mt-16 max-w-3xl">
+            <p className="measure text-lg leading-relaxed text-muted-foreground sm:text-xl sm:leading-relaxed">
+              Content, production, social, paid media, and web for Cape Town
+              SMEs. We sit close to the work: briefs in English, files on time,
+              a monthly note that an owner can actually read.
+            </p>
+            <p className="mt-8 text-sm leading-relaxed text-muted-foreground">
+              Labs stays in the wings — product & tooling when a brief needs it.
+            </p>
+          </div>
+        </Reveal>
       </div>
     </section>
   );

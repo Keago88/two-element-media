@@ -5,7 +5,7 @@ import { steps } from "@/lib/site";
 export function Method() {
   return (
     <section id="method" className="scroll-mt-24 border-b border-white/10">
-      <div className="mx-auto w-full max-w-[1120px] px-5 py-20 sm:px-8 sm:py-28">
+      <div className="section-y mx-auto w-full max-w-[1120px] px-5 sm:px-8">
         <Reveal>
           <SectionHeading
             index="02"
@@ -14,20 +14,17 @@ export function Method() {
             description="Four steps. You always know what happens next. No retainers that quietly go quiet."
           />
         </Reveal>
-        <ol className="mt-16 grid gap-0 border-t border-white/12 md:grid-cols-4 md:border-t-0 md:border-l">
+        <ol className="relative mt-20 max-w-3xl border-l border-white/15">
           {steps.map((step, index) => (
-            <li
-              key={step.n}
-              className="border-b border-white/12 py-8 md:border-b-0 md:border-r md:px-6 md:py-2 first:md:pl-0 last:md:border-r-0 last:md:pr-0"
-            >
-              <Reveal delayMs={index * 90}>
-                <p className="font-heading text-sm tracking-[0.28em] text-muted-foreground">
+            <li key={step.n} className="relative py-14 pl-8 sm:py-20 sm:pl-14">
+              <Reveal delayMs={index * 60}>
+                <p className="font-heading text-6xl font-semibold tracking-tight text-white/20 sm:text-7xl">
                   {step.n}
                 </p>
-                <h3 className="font-heading mt-4 text-2xl font-semibold tracking-tight">
+                <h3 className="font-heading mt-6 text-3xl font-semibold tracking-tight">
                   {step.title}
                 </h3>
-                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                <p className="measure mt-4 text-base leading-relaxed text-muted-foreground sm:text-lg">
                   {step.body}
                 </p>
               </Reveal>

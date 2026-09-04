@@ -8,7 +8,7 @@ export function Contact({ sent = false }: { sent?: boolean }) {
 
   return (
     <section id="contact" className="scroll-mt-24">
-      <div className="mx-auto grid w-full max-w-[1120px] gap-12 px-5 py-20 sm:px-8 sm:py-28 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
+      <div className="section-y mx-auto grid w-full max-w-[1120px] gap-12 px-5 sm:px-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
         <Reveal>
           <SectionHeading
             index="05"
