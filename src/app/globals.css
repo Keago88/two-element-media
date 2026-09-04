@@ -189,4 +189,14 @@
   .reveal {
     animation: none;
   }
+
+  [data-parallax] {
+    transform: none !important;
+  }
+}
+
+@media (max-width: 767px) {
+  [data-parallax] {
+    transform: none !important;
+  }
 }
