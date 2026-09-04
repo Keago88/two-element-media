@@ -14,7 +14,7 @@ export function Method() {
             description="Four steps. You always know what happens next. No retainers that quietly go quiet."
           />
         </Reveal>
-        <ol className="relative mt-20 max-w-3xl border-l border-white/15">
+        <ol className="relative mt-20 max-w-3xl border-l border-white/25">
           {steps.map((step, index) => (
             <li key={step.n} className="relative py-14 pl-8 sm:py-20 sm:pl-14">
               <Reveal delayMs={index * 60}>

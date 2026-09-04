@@ -48,7 +48,7 @@ export const services = [
     id: "paid",
     title: "Paid media",
     kicker: "Budgets with a job",
-    body: "Meta and Google campaigns sized for Cape Town SMEs. Clear offers, tight audiences, weekly notes on what ran and what to change. Weekly notes you can act on.",
+    body: "Meta and Google campaigns sized for Cape Town SMEs. Clear offers, tight audiences. Weekly notes you can act on.",
   },
   {
     id: "web",

@@ -12,7 +12,7 @@ export function Hero() {
         factor={0.2}
       >
         <TwinMark
-          className="h-10 w-11 text-white/35"
+          className="h-10 w-11 text-white/50"
           title="Two Element"
         />
       </Parallax>
