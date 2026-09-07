@@ -1,11 +1,11 @@
 import Link from "next/link";
-import { TwinMark } from "@/components/twin-mark";
+import { BrandMark } from "@/components/brand-mark";
 import { Button } from "@/components/ui/button";
 
 export default function NotFound() {
   return (
     <div className="mx-auto flex min-h-[70vh] w-full max-w-[1120px] flex-col items-start justify-center px-5 py-24 sm:px-8">
-      <TwinMark className="h-12 w-14" />
+      <BrandMark className="h-16 w-auto" />
       <p className="font-heading mt-8 text-xs tracking-[0.28em] text-muted-foreground uppercase">
         404
       </p>

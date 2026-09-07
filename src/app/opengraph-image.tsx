@@ -1,10 +1,15 @@
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
 import { ImageResponse } from "next/og";
 
 export const alt = "Two Element Media — Cape Town studio";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-export default function OpenGraphImage() {
+export default async function OpenGraphImage() {
+  const logo = await readFile(join(process.cwd(), "public/logo-mark.png"));
+  const logoSrc = `data:image/png;base64,${logo.toString("base64")}`;
+
   return new ImageResponse(
     (
       <div
@@ -69,20 +74,14 @@ export default function OpenGraphImage() {
               Cape Town · content, social, paid media, web
             </div>
           </div>
-          <svg width="220" height="180" viewBox="0 0 48 40">
-            <polygon
-              points="16,3 31,31 1,31"
-              stroke="#fff"
-              strokeWidth="1.4"
-              fill="none"
-            />
-            <polygon
-              points="32,9 47,37 17,37"
-              stroke="#fff"
-              strokeWidth="1.4"
-              fill="none"
-            />
-          </svg>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={logoSrc}
+            alt=""
+            width={220}
+            height={220}
+            style={{ objectFit: "contain" }}
+          />
         </div>
       </div>
     ),
