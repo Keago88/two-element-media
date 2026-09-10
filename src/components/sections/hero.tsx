@@ -12,7 +12,7 @@ export function Hero() {
         <HeroDepth />
         <Parallax
           className="pointer-events-none absolute top-6 right-5 z-[2] sm:top-8 sm:right-8"
-          factor={0.38}
+          factor={0.48}
           mode="hero"
         >
           <BrandMark className="h-20 w-auto opacity-45 sm:h-24" title="Two Element" />

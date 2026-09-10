@@ -49,23 +49,23 @@ export function DepthFallback() {
 
       for (const node of nodes) {
         const kind = node.dataset.depth;
-        const t = Math.min(1, y / (vh * 1.1));
+        const t = Math.min(1, y / (vh * 0.7));
         let transform = "none";
 
         if (kind === "page-twin") {
           transform = `translate3d(${-8 - t * 10}%, ${-10 + t * 38}%, 0) scale(${1 + t * 0.12})`;
           node.style.opacity = String(0.02 + t * 0.05);
         } else if (kind === "hero-grid") {
-          transform = `translate3d(0, ${t * -18}%, 0)`;
+          transform = `translate3d(0, ${t * -32}%, 0)`;
         } else if (kind === "hero-twin") {
-          transform = `translate3d(${t * -4}%, ${t * 22}%, 0) scale(${1 + t * 0.06})`;
+          transform = `translate3d(${t * -8}%, ${t * 36}%, 0) scale(${1 + t * 0.1})`;
         } else if (kind === "hero-hairline") {
-          transform = `translate3d(0, ${t * 28}%, 0)`;
-          node.style.opacity = String(0.14 - t * 0.1);
+          transform = `translate3d(0, ${t * 42}%, 0)`;
+          node.style.opacity = String(0.28 - t * 0.22);
         } else if (kind === "hero-scrim") {
-          const s = Math.min(1, y / (vh * 0.85));
-          transform = `translate3d(0, ${(1 - s) * 12}%, 0)`;
-          node.style.opacity = String(0.12 + s * 0.88);
+          const s = Math.min(1, y / (vh * 0.55));
+          transform = `translate3d(0, ${(1 - s) * 18}%, 0)`;
+          node.style.opacity = String(0.08 + s * 0.84);
         }
 
         node.style.willChange = "transform";

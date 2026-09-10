@@ -365,42 +365,42 @@
 
 .hero-depth-grid {
   position: absolute;
-  inset: -18% -8%;
+  inset: -22% -10%;
   background-image:
-    linear-gradient(to right, rgb(255 255 255 / 0.07) 1px, transparent 1px),
-    linear-gradient(to bottom, rgb(255 255 255 / 0.055) 1px, transparent 1px);
-  background-size: 7.5rem 7.5rem;
+    linear-gradient(to right, rgb(255 255 255 / 0.14) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(255 255 255 / 0.1) 1px, transparent 1px);
+  background-size: 5.5rem 5.5rem;
   mask-image: radial-gradient(
-    ellipse 75% 70% at 72% 38%,
-    #000 10%,
-    transparent 72%
+    ellipse 85% 80% at 78% 42%,
+    #000 18%,
+    transparent 78%
   );
 }
 
 .hero-depth-twin {
   position: absolute;
-  top: 6%;
-  right: -6%;
-  width: min(78vw, 40rem);
+  top: 4%;
+  right: -8%;
+  width: min(82vw, 44rem);
   height: auto;
-  opacity: 0.11;
+  opacity: 0.16;
 }
 
 .hero-depth-hairline {
   position: absolute;
-  top: 12%;
-  bottom: 18%;
-  right: 22%;
+  top: 8%;
+  bottom: 14%;
+  right: 24%;
   width: 1px;
-  background: rgb(255 255 255 / 0.14);
+  background: rgb(255 255 255 / 0.28);
 }
 
 .hero-depth-scrim {
   position: absolute;
   inset: auto 0 0;
-  height: 42%;
+  height: 48%;
   background: linear-gradient(to bottom, transparent, #000);
-  opacity: 0.2;
+  opacity: 0.18;
 }
 
 .work-pin-stage {
@@ -416,7 +416,7 @@
         animation-timing-function: linear;
         animation-fill-mode: both;
         animation-timeline: scroll(root);
-        animation-range: 0 100vh;
+        animation-range: 0 65vh;
       }
 
       [data-parallax="view"] {
@@ -439,7 +439,7 @@
         animation-timing-function: linear;
         animation-fill-mode: both;
         animation-timeline: scroll(root);
-        animation-range: 0 110vh;
+        animation-range: 0 70vh;
       }
 
       .hero-depth-twin {
@@ -447,7 +447,7 @@
         animation-timing-function: linear;
         animation-fill-mode: both;
         animation-timeline: scroll(root);
-        animation-range: 0 110vh;
+        animation-range: 0 70vh;
       }
 
       .hero-depth-hairline {
@@ -455,7 +455,7 @@
         animation-timing-function: linear;
         animation-fill-mode: both;
         animation-timeline: scroll(root);
-        animation-range: 0 100vh;
+        animation-range: 0 60vh;
       }
 
       .hero-depth-scrim {
@@ -463,7 +463,7 @@
         animation-timing-function: linear;
         animation-fill-mode: both;
         animation-timeline: scroll(root);
-        animation-range: 0 85vh;
+        animation-range: 0 55vh;
       }
     }
   }
@@ -489,7 +489,7 @@
     transform: translate3d(0, 0, 0);
   }
   to {
-    transform: translate3d(0, calc(var(--parallax-factor, 0.2) * 100vh), 0);
+    transform: translate3d(0, calc(var(--parallax-factor, 0.2) * 70vh), 0);
   }
 }
 
@@ -518,7 +518,7 @@
     transform: translate3d(0, 0, 0);
   }
   to {
-    transform: translate3d(0, -18%, 0);
+    transform: translate3d(0, -32%, 0);
   }
 }
 
@@ -527,28 +527,28 @@
     transform: translate3d(0, 0, 0) scale(1);
   }
   to {
-    transform: translate3d(-4%, 22%, 0) scale(1.06);
+    transform: translate3d(-8%, 36%, 0) scale(1.1);
   }
 }
 
 @keyframes depth-hero-hairline {
   from {
     transform: translate3d(0, 0, 0);
-    opacity: 0.14;
+    opacity: 0.28;
   }
   to {
-    transform: translate3d(0, 28%, 0);
-    opacity: 0.04;
+    transform: translate3d(0, 42%, 0);
+    opacity: 0.06;
   }
 }
 
 @keyframes depth-hero-scrim {
   from {
-    opacity: 0.12;
-    transform: translate3d(0, 12%, 0);
+    opacity: 0.08;
+    transform: translate3d(0, 18%, 0);
   }
   to {
-    opacity: 1;
+    opacity: 0.92;
     transform: translate3d(0, 0, 0);
   }
 }
