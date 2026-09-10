@@ -19,10 +19,12 @@ function remap(story: number, index: number) {
   return clamp01(story * 3 - index);
 }
 
-function crossfade(story: number, index: number) {
-  const center = (index + 0.5) / 3;
-  const dist = Math.abs(story - center);
-  return clamp01(1 - dist / 0.28);
+function chapterWeight(story: number, index: number, edge: number) {
+  const start = index / 3;
+  const end = (index + 1) / 3;
+  if (story < start) return clamp01(1 - (start - story) / edge);
+  if (story > end) return clamp01(1 - (story - end) / edge);
+  return 1;
 }
 
 /**
@@ -50,9 +52,15 @@ export function WorkStory() {
       layers.forEach((node, index) => {
         if (!node) return;
         const local = remap(story, index);
-        const opacity = crossfade(story, index);
         node.style.setProperty("--p", local.toFixed(4));
-        node.style.opacity = opacity.toFixed(3);
+        node.style.setProperty(
+          "--chapter-frame",
+          chapterWeight(story, index, 0.16).toFixed(3),
+        );
+        node.style.setProperty(
+          "--chapter-copy",
+          chapterWeight(story, index, 0.1).toFixed(3),
+        );
       });
       const chapter = story < 1 / 3 ? 1 : story < 2 / 3 ? 2 : 3;
       if (indexRef.current) {
@@ -66,7 +74,8 @@ export function WorkStory() {
         layers.forEach((node) => {
           if (!node) return;
           node.style.setProperty("--p", "0.62");
-          node.style.opacity = "1";
+          node.style.setProperty("--chapter-frame", "1");
+          node.style.setProperty("--chapter-copy", "1");
         });
         if (indexRef.current) indexRef.current.textContent = "03 / 03";
         return;
@@ -135,7 +144,13 @@ export function WorkStory() {
                 ref={ref}
                 className="work-story-chapter work-scrub"
                 data-chapter={item.id}
-                style={{ opacity: index === 0 ? 1 : 0 }}
+                style={
+                  {
+                    "--p": 0,
+                    "--chapter-frame": index === 0 ? 1 : 0,
+                    "--chapter-copy": index === 0 ? 1 : 0,
+                  } as CSSProperties
+                }
               >
                 <ChapterBody item={item} Frame={Frame} swap={index === 1} />
               </div>
@@ -161,7 +176,7 @@ function ChapterBody({
       <div
         aria-hidden="true"
         className={cn(
-          "pointer-events-none absolute inset-y-0 z-0 flex w-full items-center justify-center sm:w-[58%] sm:pr-8 lg:pr-16",
+          "work-story-frame pointer-events-none absolute inset-y-0 z-0 flex w-full items-center justify-center sm:w-[58%] sm:pr-8 lg:pr-16",
           swap ? "sm:left-0 sm:justify-start sm:pr-0 sm:pl-8 lg:pl-16" : "right-0 sm:justify-end",
         )}
       >
@@ -169,7 +184,7 @@ function ChapterBody({
       </div>
       <div
         className={cn(
-          "relative z-10 mx-auto w-full max-w-[1120px] px-5 py-20 sm:px-8 sm:py-24",
+          "work-story-copy relative z-10 mx-auto w-full max-w-[1120px] px-5 py-20 sm:px-8 sm:py-24",
           swap && "sm:flex sm:justify-end",
         )}
       >

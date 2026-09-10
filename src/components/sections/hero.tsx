@@ -50,7 +50,7 @@ export function Hero() {
             </p>
           </div>
         </div>
-        <div className="hero-chips relative z-[3] border-t border-white/10">
+        <div className="hero-chips hero-fade relative z-[3] border-t border-white/10">
           <div className="mx-auto flex w-full max-w-[1120px] flex-wrap items-center gap-2.5 px-5 py-5 sm:px-8">
             {chips.map((chip) => (
               <span
