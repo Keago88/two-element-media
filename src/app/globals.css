@@ -335,6 +335,268 @@
   stroke-dashoffset: 0;
 }
 
+/*
+ * Hero pin beats (--hero-p 0→1, desktop + motion only):
+ *   0.00–0.20  editorial hold (copy, chips, faint far mark)
+ *   0.20–0.50  supporting copy/chips blur-fade; far mark recedes; grid + plate
+ *   0.48–0.84  stamp settles; TwinMark continues (≤120px); H1 + CTA stay
+ *   0.84–1.00  stamp eases out as the pin releases
+ */
+/* --- Pinned hero scene + depth planes. --hero-p is 0→1 on the track. --- */
+.hero-track {
+  --hero-p: 0;
+}
+
+.hero-pin-stage {
+  position: relative;
+  overflow: clip;
+  display: flex;
+  min-height: calc(100svh - 4.5rem);
+  flex-direction: column;
+}
+
+.hero-pin-stage .hero-copy {
+  flex: 1 1 auto;
+}
+
+.hero-depth {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: clip;
+  color: #fff;
+}
+
+.hero-depth-far {
+  --recede: clamp(0, calc((var(--hero-p) - 0.16) / 0.36), 1);
+  position: absolute;
+  top: -6%;
+  right: -14%;
+  z-index: 0;
+  width: min(88vw, 46rem);
+  opacity: calc(0.07 * (1 - var(--recede) * 0.78));
+  filter: blur(calc(var(--recede) * 10px));
+  transform: translate3d(0, calc(var(--hero-p) * 36px), 0)
+    scale(calc(1.03 - var(--recede) * 0.05));
+}
+
+.hero-depth-far-mark {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.hero-depth-grid {
+  --ink: clamp(0, calc((var(--hero-p) - 0.16) / 0.34), 1);
+  position: absolute;
+  inset: -8% 0;
+  z-index: 1;
+  opacity: calc(0.28 + var(--ink) * 0.62);
+  background-image:
+    linear-gradient(to right, rgb(255 255 255 / 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(255 255 255 / 0.045) 1px, transparent 1px);
+  background-size: 6.5rem 6.5rem;
+  transform: translate3d(0, calc(var(--hero-p) * -40px), 0);
+}
+
+.hero-depth-hairline {
+  --ink: clamp(0, calc((var(--hero-p) - 0.18) / 0.3), 1);
+  position: absolute;
+  top: 10%;
+  bottom: 16%;
+  right: 26%;
+  z-index: 1;
+  width: 1px;
+  background: rgb(255 255 255 / 0.18);
+  opacity: calc(0.14 + var(--ink) * 0.4);
+  transform: translate3d(0, calc(var(--hero-p) * 64px), 0);
+}
+
+.hero-blueprint {
+  --plate: clamp(0, calc((var(--hero-p) - 0.22) / 0.2), 1);
+  --plate-out: clamp(0, calc((var(--hero-p) - 0.9) / 0.1), 1);
+  position: absolute;
+  inset: 9% 7%;
+  z-index: 1;
+  pointer-events: none;
+  opacity: calc(var(--plate) * (1 - var(--plate-out)));
+  transform: scale(calc(0.972 + var(--plate) * 0.028));
+}
+
+.hero-blueprint [data-corner] {
+  position: absolute;
+  width: 1.35rem;
+  height: 1.35rem;
+  border-color: rgb(255 255 255 / 0.38);
+  border-style: solid;
+  border-width: 0;
+}
+
+.hero-blueprint [data-corner="tl"] {
+  top: 0;
+  left: 0;
+  border-top-width: 1px;
+  border-left-width: 1px;
+}
+
+.hero-blueprint [data-corner="tr"] {
+  top: 0;
+  right: 0;
+  border-top-width: 1px;
+  border-right-width: 1px;
+}
+
+.hero-blueprint [data-corner="bl"] {
+  bottom: 0;
+  left: 0;
+  border-bottom-width: 1px;
+  border-left-width: 1px;
+}
+
+.hero-blueprint [data-corner="br"] {
+  right: 0;
+  bottom: 0;
+  border-bottom-width: 1px;
+  border-right-width: 1px;
+}
+
+.hero-twinmark {
+  transform: translate3d(0, calc(var(--hero-p) * 120px), 0);
+}
+
+.hero-stamp {
+  display: none;
+}
+
+.hero-copy-soft,
+.hero-fade {
+  --fade: clamp(0, calc((var(--hero-p) - 0.2) / 0.3), 1);
+  opacity: calc(1 - var(--fade));
+}
+
+.hero-copy-soft {
+  filter: blur(calc(var(--fade) * 6px));
+}
+
+.work-pin-stage {
+  position: relative;
+  min-height: 100svh;
+}
+
+.work-story-stage {
+  position: relative;
+  min-height: 100svh;
+}
+
+.work-story-chapter {
+  --chapter-frame: 0;
+  --chapter-copy: 0;
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  overflow: clip;
+}
+
+.work-story-frame {
+  opacity: var(--chapter-frame, 1);
+}
+
+.work-story-copy {
+  opacity: var(--chapter-copy, 1);
+}
+
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    @media (min-width: 768px) {
+      [data-parallax="view"] {
+        animation-name: depth-view;
+        animation-timing-function: linear;
+        animation-fill-mode: both;
+        animation-timeline: view();
+        animation-range: cover;
+      }
+    }
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @media (min-width: 768px) {
+    .hero-track {
+      min-height: 230vh;
+    }
+
+    .hero-pin-stage {
+      position: sticky;
+      top: 4.5rem;
+      height: calc(100svh - 4.5rem);
+      min-height: calc(100svh - 4.5rem);
+    }
+
+    .hero-pin-stage .hero-copy {
+      min-height: 0;
+      padding-block: 4.5rem;
+    }
+
+    .hero-stamp {
+      --in: clamp(0, calc((var(--hero-p) - 0.48) / 0.16), 1);
+      --out: clamp(0, calc((var(--hero-p) - 0.84) / 0.12), 1);
+      display: block;
+      position: absolute;
+      top: 42%;
+      right: 5%;
+      z-index: 2;
+      width: 12.5rem;
+      border: 1px solid rgb(255 255 255 / 0.16);
+      padding: 1rem 1.1rem;
+      opacity: calc(var(--in) * (1 - var(--out)));
+      transform: translate3d(
+        0,
+        calc((1 - var(--in)) * 18px + var(--hero-p) * 22px),
+        0
+      );
+    }
+
+    .work-story-frame {
+      transform: translate3d(0, calc((1 - var(--p)) * 28px), 0)
+        scale(calc(0.94 + var(--p) * 0.06));
+    }
+
+    .work-pin {
+      min-height: 170vh;
+    }
+
+    .work-pin-stage {
+      position: sticky;
+      top: 4.5rem;
+      min-height: calc(100svh - 4.5rem);
+      height: calc(100svh - 4.5rem);
+    }
+
+    .work-story {
+      min-height: 240vh;
+    }
+
+    .work-story-stage {
+      position: sticky;
+      top: 4.5rem;
+      height: calc(100svh - 4.5rem);
+      min-height: calc(100svh - 4.5rem);
+      overflow: clip;
+    }
+  }
+}
+
+@keyframes depth-view {
+  from {
+    transform: translate3d(0, calc(var(--parallax-max, 16px) * -1), 0);
+  }
+  to {
+    transform: translate3d(0, var(--parallax-max, 16px), 0);
+  }
+}
+
 @media (max-width: 767px) {
   .work-scrub {
     --motion: 0.4;
@@ -342,6 +604,30 @@
 
   .work-anim {
     opacity: 0.55;
+  }
+
+  .hero-depth-far {
+    width: min(92vw, 22rem);
+    opacity: 0.05;
+    filter: none;
+    transform: none;
+  }
+
+  .hero-depth-grid,
+  .hero-depth-hairline,
+  .hero-twinmark,
+  .hero-blueprint {
+    transform: none;
+  }
+
+  .hero-blueprint {
+    opacity: 0;
+  }
+
+  .hero-copy-soft,
+  .hero-fade {
+    opacity: 1;
+    filter: none;
   }
 }
 
@@ -354,12 +640,58 @@
   }
 
   [data-parallax] {
+    animation: none !important;
     transform: none !important;
+  }
+
+  .hero-depth-grid,
+  .hero-depth-hairline,
+  .hero-depth-far,
+  .hero-twinmark,
+  .hero-stamp,
+  .hero-blueprint,
+  .work-story-frame {
+    transform: none !important;
+    filter: none !important;
+  }
+
+  .hero-copy-soft,
+  .hero-fade,
+  .hero-stamp {
+    opacity: 1;
+    filter: none;
+  }
+
+  .hero-blueprint {
+    opacity: 0;
+  }
+
+  .hero-stamp {
+    display: none;
+  }
+
+  .work-story-frame,
+  .work-story-copy {
+    opacity: 1 !important;
   }
 
   .work-scrub {
     --p: 0.62;
     --motion: 0;
+  }
+
+  .work-story-stage {
+    position: relative !important;
+    height: auto !important;
+    min-height: 0 !important;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .work-story-chapter {
+    position: relative;
+    min-height: 70svh;
+    opacity: 1 !important;
   }
 
   .work-anim,
@@ -370,6 +702,7 @@
 
 @media (max-width: 767px) {
   [data-parallax] {
+    animation: none !important;
     transform: none !important;
   }
 }

@@ -21,7 +21,7 @@ export function About() {
               SMEs. We sit close to the work: briefs in English, files on time,
               a monthly note that an owner can actually read.
             </p>
-            <Parallax factor={0.06}>
+            <Parallax factor={0.12}>
               <p className="mt-8 text-sm leading-relaxed text-muted-foreground">
                 Labs stays in the wings — product & tooling when a brief needs it.
               </p>

@@ -15,7 +15,7 @@ export function Services() {
             index="01"
             eyebrow="Capabilities"
             title="Four kinds of work. One team."
-            titleFactor={0.1}
+            titleFactor={0.12}
             description="Pick what you need now. We do not sell a 12-product stack. If a brief needs software, Two Element Labs sits in — quietly."
           />
         </Reveal>
@@ -26,7 +26,7 @@ export function Services() {
                 <p className="font-heading text-xs tracking-[0.24em] text-muted-foreground uppercase">
                   {featured.kicker}
                 </p>
-                <Parallax factor={0.12}>
+                <Parallax factor={0.28}>
                   <h3 className="font-heading mt-6 text-4xl font-semibold tracking-tight sm:text-5xl md:text-6xl">
                     {featured.title}
                   </h3>
@@ -50,7 +50,7 @@ export function Services() {
                   <p className="font-heading text-[0.65rem] tracking-[0.24em] text-muted-foreground uppercase">
                     {service.kicker}
                   </p>
-                  <Parallax max={8}>
+                  <Parallax factor={0.28}>
                     <h3 className="font-heading mt-2 text-xl font-semibold tracking-tight sm:text-2xl">
                       {service.title}
                     </h3>

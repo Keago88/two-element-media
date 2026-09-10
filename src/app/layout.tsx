@@ -79,10 +79,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html
       lang="en-ZA"
-      className={`dark ${dmSans.variable} ${syne.variable} h-full scroll-smooth antialiased`}
+      className={`dark ${dmSans.variable} ${syne.variable} min-h-svh scroll-smooth antialiased`}
     >
       <body
-        className={`${dmSans.variable} ${syne.variable} ${dmSans.className} flex min-h-full flex-col bg-background text-foreground`}
+        className={`${dmSans.variable} ${syne.variable} ${dmSans.className} flex min-h-svh flex-col bg-background text-foreground`}
       >
         <script
           type="application/ld+json"
@@ -95,7 +95,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           Skip to content
         </a>
         <SiteHeader />
-        <main id="main" className="flex-1">
+        <main id="main" className="relative z-10 flex-1">
           {children}
         </main>
         <SiteFooter />
