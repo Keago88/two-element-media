@@ -14,7 +14,7 @@ export function Contact({ sent = false }: { sent?: boolean }) {
             index="05"
             eyebrow="Contact"
             title="Tell us what has to move."
-            titleFactor={0.16}
+            titleFactor={0.12}
             description={
               whatsapp
                 ? "A form, an email, or WhatsApp. We reply from Cape Town, usually within one business day."

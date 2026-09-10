@@ -17,21 +17,31 @@ type ParallaxMode = "hero" | "view";
 type ParallaxProps = {
   children: ReactNode;
   className?: string;
-  /** Scroll lag. Hero mark ~0.32–0.4; in-page type ~0.1–0.22. */
+  /**
+   * Lag vs scroll. Hero TwinMark ~0.2 (≈0.8× apparent, cap ~120px at 600px).
+   * Page ladder: 0.12 quiet / 0.28 mid / 0.45 firm.
+   */
   factor?: number;
-  /** Cap translateY in px for view-tied layers. */
+  /** Cap translateY in px. Hero TwinMark 120; view layers stay modest. */
   max?: number;
   /**
    * `hero` — document scroll lag (first viewport).
-   * `view` — element-relative, tied to cover range (default).
+   * `view` — element-relative cover range (default).
    */
   mode?: ParallaxMode;
 };
 
 type ParallaxNode = HTMLElement | SVGElement;
 
-/** Ceiling for uncapped in-page factor motion (JS fallback). */
-const PAGE_FACTOR_CAP = 48;
+/** Quiet / mid / firm page ladder (Michelangelo). */
+export const depthFactor = {
+  quiet: 0.12,
+  mid: 0.28,
+  firm: 0.45,
+} as const;
+
+const PAGE_FACTOR_CAP = 40;
+const HERO_RANGE_PX = 600;
 
 function scrollY() {
   return window.scrollY || document.documentElement.scrollTop || 0;
@@ -47,26 +57,32 @@ function supportsScrollDriven(): boolean {
 
 function viewMaxPx(factor: number, max?: number) {
   if (typeof max === "number") return max;
-  return Math.min(PAGE_FACTOR_CAP, Math.max(10, Math.round(Math.abs(factor) * 240)));
+  return Math.min(
+    PAGE_FACTOR_CAP,
+    Math.max(8, Math.round(Math.abs(factor) * 90)),
+  );
+}
+
+function heroToPx(factor: number, max?: number) {
+  const raw = Math.round(Math.abs(factor) * HERO_RANGE_PX);
+  if (typeof max === "number") return Math.min(max, raw);
+  return raw;
 }
 
 /**
- * Layered translateY on the visible child (mark / type / hairline).
- *
- * Primary path: CSS scroll-driven animations (`data-parallax="hero"|"view"`).
- * Fallback: rAF + scroll listeners when `animation-timeline` is unavailable.
- *
- * Disabled for prefers-reduced-motion and max-width 767px (CSS kill-switch + JS rest).
+ * translateY on the visible child. CSS scroll-driven when supported;
+ * rAF fallback otherwise. Off for prefers-reduced-motion and max-width 767px.
  */
 export function Parallax({
   children,
   className,
-  factor = 0.2,
+  factor = depthFactor.quiet,
   max,
   mode = "view",
 }: ParallaxProps) {
   const [node, setNode] = useState<ParallaxNode | null>(null);
-  const distance = viewMaxPx(factor, max);
+  const viewDistance = viewMaxPx(factor, max);
+  const heroDistance = heroToPx(factor, max);
 
   useLayoutEffect(() => {
     if (!node) return;
@@ -115,7 +131,7 @@ export function Parallax({
       let y: number;
 
       if (mode === "hero") {
-        y = yScroll * factor;
+        y = Math.min(heroDistance, Math.max(0, yScroll * factor));
       } else if (typeof max === "number") {
         const center = originTop + originHeight / 2;
         const viewportCenter = yScroll + window.innerHeight / 2;
@@ -129,8 +145,7 @@ export function Parallax({
         y = Math.max(-PAGE_FACTOR_CAP, Math.min(PAGE_FACTOR_CAP, y));
       }
 
-      node.style.willChange = "transform";
-      node.style.transform = `translateY(${y.toFixed(2)}px)`;
+      node.style.transform = `translate3d(0, ${y.toFixed(2)}px, 0)`;
     };
 
     const queue = () => {
@@ -160,7 +175,7 @@ export function Parallax({
       if (frame) window.cancelAnimationFrame(frame);
       rest();
     };
-  }, [node, factor, max, mode]);
+  }, [node, factor, max, mode, heroDistance]);
 
   const child = Children.only(children);
 
@@ -176,7 +191,8 @@ export function Parallax({
   const layerStyle = {
     ...element.props.style,
     "--parallax-factor": String(factor),
-    "--parallax-max": `${distance}px`,
+    "--parallax-max":
+      mode === "hero" ? `${heroDistance}px` : `${viewDistance}px`,
   } as CSSProperties;
 
   return cloneElement(element, {

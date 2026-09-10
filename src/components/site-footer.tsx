@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { BrandMark } from "@/components/brand-mark";
 import { Logo } from "@/components/logo";
-import { Parallax } from "@/components/parallax";
 import { site } from "@/lib/site";
 
 const footerNav = [
@@ -92,9 +91,7 @@ export function SiteFooter() {
       <div className="border-t border-white/10">
         <div className="mx-auto flex w-full max-w-[1120px] flex-col gap-4 px-5 py-6 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between sm:px-8">
           <p className="inline-flex items-center gap-2">
-            <Parallax factor={0.12} max={14}>
-              <BrandMark className="h-6 w-auto" />
-            </Parallax>
+            <BrandMark className="h-6 w-auto" />
             <span>
               © {new Date().getFullYear()} Two Element Media · {site.city}
             </span>

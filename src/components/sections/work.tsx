@@ -22,7 +22,7 @@ export function Work() {
             eyebrow="Work"
             title={workIntro.title}
             description={workIntro.description}
-            titleFactor={0.18}
+            titleFactor={0.12}
           />
         </Reveal>
       </div>

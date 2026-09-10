@@ -12,27 +12,27 @@ export function Method() {
             index="02"
             eyebrow="Method"
             title="A brief, a frame, the work, then we keep it running."
-            titleFactor={0.16}
+            titleFactor={0.12}
             description="Four steps. You always know what happens next. No retainers that quietly go quiet."
           />
         </Reveal>
         <div className="relative mt-20 max-w-3xl overflow-clip">
-          <Parallax factor={0.22} max={40}>
+          <Parallax factor={0.45}>
             <span
               aria-hidden
-              className="pointer-events-none absolute inset-y-[-40px] left-0 w-px bg-white/25"
+              className="pointer-events-none absolute inset-y-[-28px] left-0 w-px bg-white/25"
             />
           </Parallax>
           <ol>
             {steps.map((step, index) => (
               <li key={step.n} className="relative py-14 pl-8 sm:py-20 sm:pl-14">
                 <Reveal delayMs={index * 60}>
-                  <Parallax max={36}>
+                  <Parallax factor={0.45}>
                     <p className="font-heading text-6xl font-semibold tracking-tight text-white/20 sm:text-7xl">
                       {step.n}
                     </p>
                   </Parallax>
-                  <Parallax factor={0.12} max={22}>
+                  <Parallax factor={0.28}>
                     <h3 className="font-heading mt-6 text-3xl font-semibold tracking-tight">
                       {step.title}
                     </h3>
