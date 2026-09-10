@@ -6,50 +6,67 @@ import {
   isValidElement,
   useLayoutEffect,
   useState,
+  type CSSProperties,
   type ReactElement,
   type ReactNode,
 } from "react";
 import { cn } from "@/lib/utils";
 
+type ParallaxMode = "hero" | "view";
+
 type ParallaxProps = {
   children: ReactNode;
   className?: string;
-  /** Scroll lag. Hero mark ~0.2; in-page type ~0.08–0.22. */
+  /** Scroll lag. Hero mark ~0.32–0.4; in-page type ~0.1–0.22. */
   factor?: number;
-  /** Cap translateY in px. Stamps / numbers / hairline ~6–14. */
+  /** Cap translateY in px for view-tied layers. */
   max?: number;
+  /**
+   * `hero` — document scroll lag (first viewport).
+   * `view` — element-relative, tied to cover range (default).
+   */
+  mode?: ParallaxMode;
 };
 
 type ParallaxNode = HTMLElement | SVGElement;
 
-/** Quiet ceiling for uncapped in-page (below-fold) factor motion. */
-const PAGE_FACTOR_CAP = 14;
+/** Ceiling for uncapped in-page factor motion (JS fallback). */
+const PAGE_FACTOR_CAP = 48;
 
 function scrollY() {
   return window.scrollY || document.documentElement.scrollTop || 0;
 }
 
+function supportsScrollDriven(): boolean {
+  return (
+    typeof CSS !== "undefined" &&
+    CSS.supports("animation-timeline", "scroll()") &&
+    CSS.supports("animation-range", "0% 100%")
+  );
+}
+
+function viewMaxPx(factor: number, max?: number) {
+  if (typeof max === "number") return max;
+  return Math.min(PAGE_FACTOR_CAP, Math.max(10, Math.round(Math.abs(factor) * 240)));
+}
+
 /**
- * Applies translateY directly on the child (mark / type / hairline / stamp)
- * so DevTools shows the transform on the visible node — not a nested wrapper.
+ * Layered translateY on the visible child (mark / type / hairline).
  *
- * Document origin is cached with transform temporarily cleared so measuring
- * the same node cannot feed back into the next frame.
+ * Primary path: CSS scroll-driven animations (`data-parallax="hero"|"view"`).
+ * Fallback: rAF + scroll listeners when `animation-timeline` is unavailable.
  *
- * Modes (one system):
- * - `max` set: element-relative progress, clamped to ±max
- * - no `max`, origin in the first viewport: `scrollY * factor` (hero lag)
- * - no `max`, below the fold: element-relative `factor`, capped at ±14px
- *
- * `rest()` clears transform for prefers-reduced-motion and max-width 767px.
+ * Disabled for prefers-reduced-motion and max-width 767px (CSS kill-switch + JS rest).
  */
 export function Parallax({
   children,
   className,
   factor = 0.2,
   max,
+  mode = "view",
 }: ParallaxProps) {
   const [node, setNode] = useState<ParallaxNode | null>(null);
+  const distance = viewMaxPx(factor, max);
 
   useLayoutEffect(() => {
     if (!node) return;
@@ -60,6 +77,24 @@ export function Parallax({
     let originTop = 0;
     let originHeight = 0;
 
+    const rest = () => {
+      node.style.transform = "none";
+      node.style.removeProperty("will-change");
+    };
+
+    if (supportsScrollDriven()) {
+      const onChange = () => {
+        if (reduceMotion.matches || compact.matches) rest();
+      };
+      reduceMotion.addEventListener("change", onChange);
+      compact.addEventListener("change", onChange);
+      return () => {
+        reduceMotion.removeEventListener("change", onChange);
+        compact.removeEventListener("change", onChange);
+        rest();
+      };
+    }
+
     const captureOrigin = () => {
       const prev = node.style.transform;
       node.style.transform = "none";
@@ -67,11 +102,6 @@ export function Parallax({
       originTop = rect.top + scrollY();
       originHeight = rect.height;
       node.style.transform = prev;
-    };
-
-    const rest = () => {
-      node.style.transform = "none";
-      node.style.removeProperty("will-change");
     };
 
     const apply = () => {
@@ -84,14 +114,14 @@ export function Parallax({
       const yScroll = scrollY();
       let y: number;
 
-      if (typeof max === "number") {
+      if (mode === "hero") {
+        y = yScroll * factor;
+      } else if (typeof max === "number") {
         const center = originTop + originHeight / 2;
         const viewportCenter = yScroll + window.innerHeight / 2;
         const span = Math.max(window.innerHeight / 2, 1);
         const t = (viewportCenter - center) / span;
         y = Math.max(-max, Math.min(max, t * max));
-      } else if (originTop < window.innerHeight) {
-        y = yScroll * factor;
       } else {
         const center = originTop + originHeight / 2;
         const viewportCenter = yScroll + window.innerHeight / 2;
@@ -130,7 +160,7 @@ export function Parallax({
       if (frame) window.cancelAnimationFrame(frame);
       rest();
     };
-  }, [node, factor, max]);
+  }, [node, factor, max, mode]);
 
   const child = Children.only(children);
 
@@ -138,11 +168,21 @@ export function Parallax({
     return null;
   }
 
-  const element = child as ReactElement<{ className?: string }>;
+  const element = child as ReactElement<{
+    className?: string;
+    style?: CSSProperties;
+  }>;
+
+  const layerStyle = {
+    ...element.props.style,
+    "--parallax-factor": String(factor),
+    "--parallax-max": `${distance}px`,
+  } as CSSProperties;
 
   return cloneElement(element, {
     className: cn(element.props.className, className),
-    "data-parallax": "",
+    "data-parallax": mode,
+    style: layerStyle,
     ref: setNode,
   } as typeof element.props);
 }

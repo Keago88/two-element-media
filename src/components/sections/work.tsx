@@ -1,4 +1,3 @@
-import { Parallax } from "@/components/parallax";
 import { Reveal } from "@/components/reveal";
 import { SectionHeading } from "@/components/section-heading";
 import { AnimGrow } from "@/components/work-anim/anim-grow";
@@ -23,7 +22,7 @@ export function Work() {
             eyebrow="Work"
             title={workIntro.title}
             description={workIntro.description}
-            titleFactor={0.1}
+            titleFactor={0.18}
           />
         </Reveal>
       </div>
@@ -32,10 +31,10 @@ export function Work() {
           const Frame = frames[item.id];
           return (
             <article key={item.id} className="border-b border-white/10">
-              <WorkScrub className="relative flex min-h-[100svh] items-center overflow-hidden">
+              <WorkScrub className="relative flex items-center overflow-clip">
                 <div
                   aria-hidden="true"
-                  className="pointer-events-none absolute inset-y-0 right-0 flex w-full items-center justify-center sm:w-[58%] sm:justify-end sm:pr-8 lg:pr-16"
+                  className="pointer-events-none absolute inset-y-0 right-0 z-0 flex w-full items-center justify-center sm:w-[58%] sm:justify-end sm:pr-8 lg:pr-16"
                 >
                   <Frame />
                 </div>
@@ -43,11 +42,9 @@ export function Work() {
                   <p className="font-heading text-xs tracking-[0.2em] text-foreground/75 uppercase">
                     {item.label}
                   </p>
-                  <Parallax factor={0.08}>
-                    <h3 className="font-heading mt-6 text-6xl font-semibold tracking-tight text-balance sm:text-7xl md:text-8xl">
-                      {item.title}
-                    </h3>
-                  </Parallax>
+                  <h3 className="font-heading mt-6 text-6xl font-semibold tracking-tight text-balance sm:text-7xl md:text-8xl">
+                    {item.title}
+                  </h3>
                   <p className="measure mt-6 max-w-md text-base leading-relaxed text-muted-foreground sm:text-lg">
                     {item.caption}
                   </p>

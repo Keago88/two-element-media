@@ -335,6 +335,224 @@
   stroke-dashoffset: 0;
 }
 
+/* --- Depth field (page + hero) --- */
+.page-depth {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: clip;
+  color: #fff;
+}
+
+.page-depth-twin {
+  position: absolute;
+  top: 18%;
+  left: 52%;
+  width: min(90vw, 52rem);
+  height: auto;
+  opacity: 0.045;
+}
+
+.hero-depth {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: clip;
+  color: #fff;
+}
+
+.hero-depth-grid {
+  position: absolute;
+  inset: -18% -8%;
+  background-image:
+    linear-gradient(to right, rgb(255 255 255 / 0.07) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(255 255 255 / 0.055) 1px, transparent 1px);
+  background-size: 7.5rem 7.5rem;
+  mask-image: radial-gradient(
+    ellipse 75% 70% at 72% 38%,
+    #000 10%,
+    transparent 72%
+  );
+}
+
+.hero-depth-twin {
+  position: absolute;
+  top: 6%;
+  right: -6%;
+  width: min(78vw, 40rem);
+  height: auto;
+  opacity: 0.11;
+}
+
+.hero-depth-hairline {
+  position: absolute;
+  top: 12%;
+  bottom: 18%;
+  right: 22%;
+  width: 1px;
+  background: rgb(255 255 255 / 0.14);
+}
+
+.hero-depth-scrim {
+  position: absolute;
+  inset: auto 0 0;
+  height: 42%;
+  background: linear-gradient(to bottom, transparent, #000);
+  opacity: 0.2;
+}
+
+.work-pin-stage {
+  position: relative;
+  min-height: 100svh;
+}
+
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    @media (min-width: 768px) {
+      [data-parallax="hero"] {
+        animation-name: depth-hero;
+        animation-timing-function: linear;
+        animation-fill-mode: both;
+        animation-timeline: scroll(root);
+        animation-range: 0 100vh;
+      }
+
+      [data-parallax="view"] {
+        animation-name: depth-view;
+        animation-timing-function: linear;
+        animation-fill-mode: both;
+        animation-timeline: view();
+        animation-range: cover;
+      }
+
+      .page-depth-twin {
+        animation-name: depth-page-twin;
+        animation-timing-function: linear;
+        animation-fill-mode: both;
+        animation-timeline: scroll(root);
+      }
+
+      .hero-depth-grid {
+        animation-name: depth-hero-grid;
+        animation-timing-function: linear;
+        animation-fill-mode: both;
+        animation-timeline: scroll(root);
+        animation-range: 0 110vh;
+      }
+
+      .hero-depth-twin {
+        animation-name: depth-hero-twin;
+        animation-timing-function: linear;
+        animation-fill-mode: both;
+        animation-timeline: scroll(root);
+        animation-range: 0 110vh;
+      }
+
+      .hero-depth-hairline {
+        animation-name: depth-hero-hairline;
+        animation-timing-function: linear;
+        animation-fill-mode: both;
+        animation-timeline: scroll(root);
+        animation-range: 0 100vh;
+      }
+
+      .hero-depth-scrim {
+        animation-name: depth-hero-scrim;
+        animation-timing-function: linear;
+        animation-fill-mode: both;
+        animation-timeline: scroll(root);
+        animation-range: 0 85vh;
+      }
+    }
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @media (min-width: 768px) {
+    .work-pin {
+      min-height: 185vh;
+    }
+
+    .work-pin-stage {
+      position: sticky;
+      top: 4.5rem;
+      min-height: calc(100svh - 4.5rem);
+      height: calc(100svh - 4.5rem);
+    }
+  }
+}
+
+@keyframes depth-hero {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(0, calc(var(--parallax-factor, 0.2) * 100vh), 0);
+  }
+}
+
+@keyframes depth-view {
+  from {
+    transform: translate3d(0, calc(var(--parallax-max, 36px) * -1), 0);
+  }
+  to {
+    transform: translate3d(0, var(--parallax-max, 36px), 0);
+  }
+}
+
+@keyframes depth-page-twin {
+  from {
+    transform: translate3d(-8%, -10%, 0) scale(1);
+    opacity: 0.02;
+  }
+  to {
+    transform: translate3d(-18%, 28%, 0) scale(1.12);
+    opacity: 0.07;
+  }
+}
+
+@keyframes depth-hero-grid {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(0, -18%, 0);
+  }
+}
+
+@keyframes depth-hero-twin {
+  from {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  to {
+    transform: translate3d(-4%, 22%, 0) scale(1.06);
+  }
+}
+
+@keyframes depth-hero-hairline {
+  from {
+    transform: translate3d(0, 0, 0);
+    opacity: 0.14;
+  }
+  to {
+    transform: translate3d(0, 28%, 0);
+    opacity: 0.04;
+  }
+}
+
+@keyframes depth-hero-scrim {
+  from {
+    opacity: 0.12;
+    transform: translate3d(0, 12%, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
 @media (max-width: 767px) {
   .work-scrub {
     --motion: 0.4;
@@ -342,6 +560,20 @@
 
   .work-anim {
     opacity: 0.55;
+  }
+
+  .hero-depth-twin {
+    width: min(92vw, 22rem);
+    opacity: 0.08;
+  }
+
+  .hero-depth-grid {
+    opacity: 0.55;
+  }
+
+  .page-depth-twin {
+    width: min(120vw, 28rem);
+    opacity: 0.03;
   }
 }
 
@@ -354,7 +586,21 @@
   }
 
   [data-parallax] {
+    animation: none !important;
     transform: none !important;
+  }
+
+  .page-depth-twin,
+  .hero-depth-grid,
+  .hero-depth-twin,
+  .hero-depth-hairline,
+  .hero-depth-scrim {
+    animation: none !important;
+    transform: none !important;
+  }
+
+  .hero-depth-scrim {
+    opacity: 0.25;
   }
 
   .work-scrub {
@@ -370,6 +616,16 @@
 
 @media (max-width: 767px) {
   [data-parallax] {
+    animation: none !important;
+    transform: none !important;
+  }
+
+  .page-depth-twin,
+  .hero-depth-grid,
+  .hero-depth-twin,
+  .hero-depth-hairline,
+  .hero-depth-scrim {
+    animation: none !important;
     transform: none !important;
   }
 }

@@ -1,21 +1,22 @@
 import { cn } from "@/lib/utils";
+import { forwardRef, type ImgHTMLAttributes } from "react";
 
 type BrandMarkProps = {
-  className?: string;
   title?: string;
-};
+} & Omit<ImgHTMLAttributes<HTMLImageElement>, "src" | "alt">;
 
-export function BrandMark({
-  className,
-  title = "Two Element",
-}: BrandMarkProps) {
-  return (
-    // Official raster mark — do not replace with an SVG recreation.
-    // eslint-disable-next-line @next/next/no-img-element
-    <img
-      src="/logo.png"
-      alt={title}
-      className={cn("h-auto w-auto shrink-0 object-contain", className)}
-    />
-  );
-}
+export const BrandMark = forwardRef<HTMLImageElement, BrandMarkProps>(
+  function BrandMark({ className, title = "Two Element", ...rest }, ref) {
+    return (
+      // Official raster mark — do not replace with an SVG recreation.
+      // eslint-disable-next-line @next/next/no-img-element
+      <img
+        ref={ref}
+        src="/logo.png"
+        alt={title}
+        className={cn("h-auto w-auto shrink-0 object-contain", className)}
+        {...rest}
+      />
+    );
+  },
+);

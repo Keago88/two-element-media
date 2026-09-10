@@ -19,7 +19,7 @@ const legal = [
 
 export function SiteFooter() {
   return (
-    <footer className="border-t border-white/10 bg-black">
+    <footer className="relative z-10 border-t border-white/10 bg-black">
       <div className="mx-auto grid w-full max-w-[1120px] gap-12 px-5 py-16 sm:px-8 md:grid-cols-[1.4fr_1fr_1fr]">
         <div>
           <Logo />
@@ -92,7 +92,7 @@ export function SiteFooter() {
       <div className="border-t border-white/10">
         <div className="mx-auto flex w-full max-w-[1120px] flex-col gap-4 px-5 py-6 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between sm:px-8">
           <p className="inline-flex items-center gap-2">
-            <Parallax factor={0.05} max={6}>
+            <Parallax factor={0.12} max={14}>
               <BrandMark className="h-6 w-auto" />
             </Parallax>
             <span>

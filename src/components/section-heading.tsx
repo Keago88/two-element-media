@@ -14,7 +14,7 @@ export function SectionHeading({
   title: string;
   description?: string;
   className?: string;
-  /** Quiet scroll lag on the headline only. Bodies stay still. */
+  /** View-tied scroll lag on the headline only. Bodies stay still. */
   titleFactor?: number;
 }) {
   const heading = (
