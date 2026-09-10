@@ -335,7 +335,23 @@
   stroke-dashoffset: 0;
 }
 
-/* --- Hero depth planes (far official PNG + mid strokes). --- */
+/* --- Pinned hero scene + depth planes. --hero-p is 0→1 on the track. --- */
+.hero-track {
+  --hero-p: 0;
+}
+
+.hero-pin-stage {
+  position: relative;
+  overflow: clip;
+  display: flex;
+  min-height: calc(100svh - 4.5rem);
+  flex-direction: column;
+}
+
+.hero-pin-stage .hero-copy {
+  flex: 1 1 auto;
+}
+
 .hero-depth {
   position: absolute;
   inset: 0;
@@ -351,7 +367,9 @@
   right: -14%;
   z-index: 0;
   width: min(88vw, 46rem);
-  opacity: 0.07;
+  opacity: calc(0.055 + var(--hero-p) * 0.03);
+  transform: translate3d(0, calc(var(--hero-p) * 28px), 0)
+    scale(calc(1 + var(--hero-p) * 0.03));
 }
 
 .hero-depth-far-mark {
@@ -364,10 +382,12 @@
   position: absolute;
   inset: -8% 0;
   z-index: 1;
+  opacity: calc(0.55 + var(--hero-p) * 0.45);
   background-image:
     linear-gradient(to right, rgb(255 255 255 / 0.06) 1px, transparent 1px),
     linear-gradient(to bottom, rgb(255 255 255 / 0.045) 1px, transparent 1px);
   background-size: 6.5rem 6.5rem;
+  transform: translate3d(0, calc(var(--hero-p) * -36px), 0);
 }
 
 .hero-depth-hairline {
@@ -378,6 +398,19 @@
   z-index: 1;
   width: 1px;
   background: rgb(255 255 255 / 0.18);
+  transform: translate3d(0, calc(var(--hero-p) * 56px), 0);
+}
+
+.hero-twinmark {
+  transform: translate3d(0, calc(var(--hero-p) * 120px), 0);
+}
+
+.hero-stamp {
+  display: none;
+}
+
+.hero-copy-soft {
+  opacity: calc(1 - max(0, var(--hero-p) - 0.78) / 0.22);
 }
 
 .work-pin-stage {
@@ -385,17 +418,22 @@
   min-height: 100svh;
 }
 
+.work-story-stage {
+  position: relative;
+  min-height: 100svh;
+}
+
+.work-story-chapter {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  overflow: clip;
+}
+
 @supports (animation-timeline: scroll()) {
   @media (prefers-reduced-motion: no-preference) {
     @media (min-width: 768px) {
-      [data-parallax="hero"] {
-        animation-name: depth-hero;
-        animation-timing-function: linear;
-        animation-fill-mode: both;
-        animation-timeline: scroll(root);
-        animation-range: 0 600px;
-      }
-
       [data-parallax="view"] {
         animation-name: depth-view;
         animation-timing-function: linear;
@@ -403,28 +441,41 @@
         animation-timeline: view();
         animation-range: cover;
       }
-
-      .hero-depth-grid {
-        animation-name: depth-hero-grid;
-        animation-timing-function: linear;
-        animation-fill-mode: both;
-        animation-timeline: scroll(root);
-        animation-range: 0 600px;
-      }
-
-      .hero-depth-hairline {
-        animation-name: depth-hero-strokes;
-        animation-timing-function: linear;
-        animation-fill-mode: both;
-        animation-timeline: scroll(root);
-        animation-range: 0 600px;
-      }
     }
   }
 }
 
 @media (prefers-reduced-motion: no-preference) {
   @media (min-width: 768px) {
+    .hero-track {
+      min-height: 220vh;
+    }
+
+    .hero-pin-stage {
+      position: sticky;
+      top: 4.5rem;
+      height: calc(100svh - 4.5rem);
+      min-height: calc(100svh - 4.5rem);
+    }
+
+    .hero-pin-stage .hero-copy {
+      min-height: 0;
+      padding-block: 4.5rem;
+    }
+
+    .hero-stamp {
+      display: block;
+      position: absolute;
+      top: 42%;
+      right: 5%;
+      z-index: 2;
+      width: 12.5rem;
+      border: 1px solid rgb(255 255 255 / 0.16);
+      padding: 1rem 1.1rem;
+      transform: translate3d(0, calc(var(--hero-p) * 40px), 0);
+      opacity: calc(clamp(0, (var(--hero-p) - 0.12) / 0.18, 1) * (1 - max(0, var(--hero-p) - 0.82) / 0.18));
+    }
+
     .work-pin {
       min-height: 170vh;
     }
@@ -435,15 +486,18 @@
       min-height: calc(100svh - 4.5rem);
       height: calc(100svh - 4.5rem);
     }
-  }
-}
 
-@keyframes depth-hero {
-  from {
-    transform: translate3d(0, 0, 0);
-  }
-  to {
-    transform: translate3d(0, var(--parallax-max, 120px), 0);
+    .work-story {
+      min-height: 240vh;
+    }
+
+    .work-story-stage {
+      position: sticky;
+      top: 4.5rem;
+      height: calc(100svh - 4.5rem);
+      min-height: calc(100svh - 4.5rem);
+      overflow: clip;
+    }
   }
 }
 
@@ -453,24 +507,6 @@
   }
   to {
     transform: translate3d(0, var(--parallax-max, 16px), 0);
-  }
-}
-
-@keyframes depth-hero-grid {
-  from {
-    transform: translate3d(0, 0, 0);
-  }
-  to {
-    transform: translate3d(0, -10%, 0);
-  }
-}
-
-@keyframes depth-hero-strokes {
-  from {
-    transform: translate3d(0, 0, 0);
-  }
-  to {
-    transform: translate3d(0, 28%, 0);
   }
 }
 
@@ -486,6 +522,17 @@
   .hero-depth-far {
     width: min(92vw, 22rem);
     opacity: 0.05;
+    transform: none;
+  }
+
+  .hero-depth-grid,
+  .hero-depth-hairline,
+  .hero-twinmark {
+    transform: none;
+  }
+
+  .hero-copy-soft {
+    opacity: 1;
   }
 }
 
@@ -504,14 +551,38 @@
 
   .hero-depth-grid,
   .hero-depth-hairline,
-  .hero-depth-far {
-    animation: none !important;
+  .hero-depth-far,
+  .hero-twinmark,
+  .hero-stamp {
     transform: none !important;
+  }
+
+  .hero-copy-soft,
+  .hero-stamp {
+    opacity: 1;
+  }
+
+  .hero-stamp {
+    display: none;
   }
 
   .work-scrub {
     --p: 0.62;
     --motion: 0;
+  }
+
+  .work-story-stage {
+    position: relative !important;
+    height: auto !important;
+    min-height: 0 !important;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .work-story-chapter {
+    position: relative;
+    min-height: 70svh;
+    opacity: 1 !important;
   }
 
   .work-anim,
@@ -522,13 +593,6 @@
 
 @media (max-width: 767px) {
   [data-parallax] {
-    animation: none !important;
-    transform: none !important;
-  }
-
-  .hero-depth-grid,
-  .hero-depth-hairline,
-  .hero-depth-far {
     animation: none !important;
     transform: none !important;
   }

@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { DM_Sans, Syne } from "next/font/google";
-import { DepthFallback } from "@/components/depth-fallback";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { site } from "@/lib/site";
@@ -95,7 +94,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         >
           Skip to content
         </a>
-        <DepthFallback />
         <SiteHeader />
         <main id="main" className="relative z-10 flex-1">
           {children}

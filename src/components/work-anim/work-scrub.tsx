@@ -7,6 +7,12 @@ import {
   type ReactNode,
 } from "react";
 import { cn } from "@/lib/utils";
+import {
+  PIN_HEADER_PX,
+  coverProgress,
+  pinMotionActive,
+  pinProgress,
+} from "@/lib/pin-progress";
 
 type WorkScrubProps = {
   children: ReactNode;
@@ -14,18 +20,6 @@ type WorkScrubProps = {
 };
 
 const MID = 0.62;
-const HEADER_PX = 72;
-
-function clamp01(value: number) {
-  return Math.min(1, Math.max(0, value));
-}
-
-function pinActive() {
-  return (
-    window.matchMedia("(min-width: 768px)").matches &&
-    window.matchMedia("(prefers-reduced-motion: no-preference)").matches
-  );
-}
 
 /**
  * Sets --p from 0→1 while this band is in play.
@@ -58,19 +52,12 @@ export function WorkScrub({ children, className }: WorkScrubProps) {
         return;
       }
 
-      const rect = node.getBoundingClientRect();
-      const viewH = window.innerHeight || 1;
-
-      if (pinActive()) {
-        const pinDist = Math.max(rect.height - (viewH - HEADER_PX), 1);
-        const scrolled = HEADER_PX - rect.top;
-        setP(clamp01(scrolled / pinDist));
+      if (pinMotionActive()) {
+        setP(pinProgress(node, PIN_HEADER_PX));
         return;
       }
 
-      const total = viewH + rect.height;
-      const traveled = viewH - rect.top;
-      setP(clamp01(traveled / Math.max(total, 1)));
+      setP(coverProgress(node));
     };
 
     const queue = () => {
