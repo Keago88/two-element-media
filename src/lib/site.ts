@@ -1,9 +1,14 @@
 export const site = {
   name: "Two Element Media",
   shortName: "Two Element",
+  title: "Two Element Media - Cape Town content & digital studio for SMEs",
+  ogTitle:
+    "Two Element Media - Content, social, paid media, and web for Cape Town SMEs",
   tagline: "Cape Town content, media, and digital for local businesses.",
   description:
-    "Two Element Media is a Cape Town studio for content, social, paid media, and web. Clear work for local businesses — without the fluff.",
+    "Cape Town studio for content, social, paid media, and web. Built for local SMEs across the CBD, Atlantic Seaboard, and Southern Suburbs.",
+  brandLine:
+    "Two elements. One studio. Media for the work people see. Labs when the brief needs more.",
   url:
     process.env.NEXT_PUBLIC_SITE_URL ??
     (process.env.VERCEL_PROJECT_PRODUCTION_URL
@@ -20,6 +25,7 @@ export const site = {
     facebook: "https://www.facebook.com/twoemedia",
     instagram: "https://www.instagram.com/twoemedia",
     threads: "https://www.threads.net/@twoemedia",
+    tiktok: "https://www.tiktok.com/@twoemedia",
   },
 } as const;
 
@@ -36,25 +42,25 @@ export const services = [
     id: "content",
     title: "Content",
     kicker: "Words. Stills. Film.",
-    body: "Scripts, articles, photo direction, and short-form video that sound like the business.",
+    body: "Scripts, articles, photo direction, and short-form video that sound like your business - not like a template.",
   },
   {
     id: "social",
     title: "Social",
     kicker: "Calendars that ship",
-    body: "A weekly plan, captions, and community replies. We keep Instagram, Facebook, and Threads consistent so you are not starting from a blank phone every Monday.",
+    body: "A weekly plan, captions, and replies across Instagram, Facebook, Threads, and TikTok. So Monday does not start on a blank phone.",
   },
   {
     id: "paid",
     title: "Paid media",
     kicker: "Budgets with a job",
-    body: "Meta and Google campaigns sized for Cape Town SMEs. Clear offers, tight audiences. Weekly notes you can act on.",
+    body: "Meta and Google campaigns sized for Cape Town SMEs. Clear offers, tight audiences, weekly notes you can act on.",
   },
   {
     id: "web",
     title: "Web & creative",
     kicker: "Sites and systems",
-    body: "Landing pages, brand marks, and campaign creative. Two Element Labs steps in only when a brief needs product or tooling underneath the marketing.",
+    body: "Landing pages, brand marks, and campaign creative. Labs only when the brief needs product or tooling under the marketing.",
   },
 ] as const;
 
@@ -62,48 +68,48 @@ export const steps = [
   {
     n: "01",
     title: "Brief",
-    body: "A call or a form. What you sell, who it is for, and what has to move in the next 90 days. We write it back to you in plain language before anything is made.",
+    body: "What you sell, who it is for, what has to move in 90 days. We write it back in plain English first.",
   },
   {
     n: "02",
     title: "Frame",
-    body: "A short plan — clear scope, clear next step.",
+    body: "Short plan: scope, deliverables, next step.",
   },
   {
     n: "03",
     title: "Make",
-    body: "We write, shoot, design, and set up. You review in one place. Edits welcome; surprises are not.",
+    body: "Write, shoot, design, set up. One review place. Edits welcome. Surprises are not.",
   },
   {
     n: "04",
     title: "Run",
-    body: "Publish, boost, measure, adjust. A monthly note with what ran, what it did, and what we recommend next.",
+    body: "Publish, boost, measure, adjust. Monthly note: what ran, what it did, what next.",
   },
 ] as const;
 
 export const workIntro = {
   title: "How the work moves.",
   description:
-    "Three studio animations — craft, systems, and growth. Not client case studies.",
+    "Three beats from brief to results. (Case studies come later; this is the system.)",
 } as const;
 
 export const studioAnimations = [
   {
     id: "make",
     title: "Make",
-    caption: "Words, stills, and film locking into one mark.",
+    caption: "Words, stills, and film pulled into one clear look.",
     label: "Studio animation",
   },
   {
     id: "ship",
     title: "Ship",
-    caption: "Calendars and campaigns that actually leave the building.",
+    caption: "Calendars and campaigns that actually go live.",
     label: "Studio animation",
   },
   {
     id: "grow",
     title: "Grow",
-    caption: "The same system, compounding week to week.",
+    caption: "The same system, week after week - with a note on what changed.",
     label: "Studio animation",
   },
 ] as const;

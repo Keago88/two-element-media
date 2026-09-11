@@ -11,9 +11,9 @@ export function Method() {
           <SectionHeading
             index="02"
             eyebrow="Method"
-            title="A brief, a frame, the work, then we keep it running."
+            title="Brief. Frame. Make. Run."
             titleFactor={0.12}
-            description="Four steps. You always know what happens next. No retainers that quietly go quiet."
+            description="Four steps. You always know what happens next. No retainer that goes quiet."
           />
         </Reveal>
         <div className="relative mt-20 max-w-3xl overflow-clip">

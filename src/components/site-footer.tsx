@@ -23,9 +23,12 @@ export function SiteFooter() {
         <div>
           <Logo />
           <p className="mt-5 max-w-sm text-sm leading-relaxed text-muted-foreground">
-            A Cape Town studio for content, social, paid media, and web. Twin
-            triangles, two desks: Media for the work customers see, Labs when a
-            brief needs product underneath.
+            Cape Town studio for content, social, paid media, and web. Media
+            does the work customers see. Labs steps in only when a brief needs
+            product or tooling.
+          </p>
+          <p className="mt-3 max-w-sm text-sm leading-relaxed text-muted-foreground">
+            {site.brandLine}
           </p>
         </div>
         <div>
@@ -78,6 +81,16 @@ export function SiteFooter() {
                 target="_blank"
               >
                 Threads {site.socialHandle}
+              </a>
+            </li>
+            <li>
+              <a
+                href={site.social.tiktok}
+                className="hover:text-white"
+                rel="noreferrer"
+                target="_blank"
+              >
+                TikTok {site.socialHandle}
               </a>
             </li>
             <li>

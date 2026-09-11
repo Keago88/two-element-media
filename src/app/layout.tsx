@@ -24,7 +24,7 @@ const syne = Syne({
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: `${site.name} — Cape Town content & digital studio`,
+    default: site.title,
     template: `%s · ${site.name}`,
   },
   description: site.description,
@@ -41,12 +41,12 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_ZA",
     siteName: site.name,
-    title: `${site.name} — Two elements. One studio.`,
+    title: site.ogTitle,
     description: site.description,
   },
   twitter: {
     card: "summary_large_image",
-    title: site.name,
+    title: site.ogTitle,
     description: site.description,
   },
   icons: {
@@ -72,7 +72,12 @@ const jsonLd = {
     addressLocality: "Cape Town",
     addressCountry: "ZA",
   },
-  sameAs: [site.social.facebook, site.social.instagram, site.social.threads],
+  sameAs: [
+    site.social.facebook,
+    site.social.instagram,
+    site.social.threads,
+    site.social.tiktok,
+  ],
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {

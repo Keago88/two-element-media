@@ -1,6 +1,7 @@
 import { Parallax } from "@/components/parallax";
 import { Reveal } from "@/components/reveal";
 import { SectionHeading } from "@/components/section-heading";
+import { site } from "@/lib/site";
 
 export function About() {
   return (
@@ -10,22 +11,26 @@ export function About() {
           <SectionHeading
             index="04"
             eyebrow="Studio"
-            title="Media does the work people see. Labs stays in the wings."
+            title="Two Element Media. Labs stays light."
             titleFactor={0.12}
           />
         </Reveal>
         <Reveal delayMs={80}>
           <div className="mt-16 max-w-3xl">
             <p className="measure text-lg leading-relaxed text-muted-foreground sm:text-xl sm:leading-relaxed">
-              Content, production, social, paid media, and web for Cape Town
-              SMEs. We sit close to the work: briefs in English, files on time,
-              a monthly note that an owner can actually read.
+              We are a Cape Town content and digital studio for SMEs. Content,
+              social, paid media, and web. Briefs in plain English, files on
+              time, a monthly note an owner can read.
             </p>
             <Parallax factor={0.12}>
               <p className="mt-8 text-sm leading-relaxed text-muted-foreground">
-                Labs stays in the wings — product & tooling when a brief needs it.
+                Two Element Labs is the development side. It stays in the wings
+                unless a brief needs product or tooling.
               </p>
             </Parallax>
+            <p className="mt-8 text-sm leading-relaxed text-muted-foreground">
+              {site.brandLine}
+            </p>
           </div>
         </Reveal>
       </div>
