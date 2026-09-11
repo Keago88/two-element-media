@@ -14,9 +14,9 @@ export function Services() {
           <SectionHeading
             index="01"
             eyebrow="Capabilities"
-            title="Four kinds of work. One team."
+            title="Four services. One studio."
             titleFactor={0.12}
-            description="Pick what you need now. We do not sell a 12-product stack. If a brief needs software, Two Element Labs sits in — quietly."
+            description="Pick what you need now. We do not sell a 12-product menu. If a brief needs software or tooling, Two Element Labs joins for that part only."
           />
         </Reveal>
         <div className="mt-16 flex flex-col gap-16 lg:flex-row lg:items-start lg:gap-20">

@@ -2,7 +2,8 @@ import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { ImageResponse } from "next/og";
 
-export const alt = "Two Element Media — Cape Town studio";
+export const alt =
+  "Two Element Media - Content, social, paid media, and web for Cape Town SMEs";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -60,8 +61,8 @@ export default async function OpenGraphImage() {
                 letterSpacing: -2,
               }}
             >
-              <div style={{ display: "flex" }}>Two elements.</div>
-              <div style={{ display: "flex" }}>One studio.</div>
+              <div style={{ display: "flex" }}>Content, social,</div>
+              <div style={{ display: "flex" }}>paid media, and web.</div>
             </div>
             <div
               style={{
@@ -71,7 +72,7 @@ export default async function OpenGraphImage() {
                 opacity: 0.72,
               }}
             >
-              Cape Town · content, social, paid media, web
+              for Cape Town SMEs
             </div>
           </div>
           {/* eslint-disable-next-line @next/next/no-img-element */}

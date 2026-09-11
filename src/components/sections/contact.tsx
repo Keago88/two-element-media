@@ -17,8 +17,8 @@ export function Contact({ sent = false }: { sent?: boolean }) {
             titleFactor={0.12}
             description={
               whatsapp
-                ? "A form, an email, or WhatsApp. We reply from Cape Town, usually within one business day."
-                : "A form or an email. We reply from Cape Town, usually within one business day."
+                ? "Form, email, or WhatsApp. We reply from Cape Town, usually within one business day."
+                : "Form or email. We reply from Cape Town, usually within one business day."
             }
           />
           <dl className="mt-10 space-y-6 text-sm">
