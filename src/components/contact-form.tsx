@@ -27,16 +27,31 @@ const empty: ContactPayload = {
 
 export function ContactForm({
   initialSuccess = false,
+  initialError = false,
+  initialService = "",
 }: {
   initialSuccess?: boolean;
+  initialError?: boolean;
+  initialService?: string;
 }) {
-  const [values, setValues] = useState<ContactPayload>(empty);
+  const [values, setValues] = useState<ContactPayload>({
+    ...empty,
+    service: serviceOptions.includes(
+      initialService as (typeof serviceOptions)[number],
+    )
+      ? initialService
+      : "",
+  });
   const [errors, setErrors] = useState<ContactFieldErrors>({});
   const [status, setStatus] = useState<
     "idle" | "submitting" | "success" | "error"
-  >(initialSuccess ? "success" : "idle");
+  >(initialSuccess ? "success" : initialError ? "error" : "idle");
   const [delivered, setDelivered] = useState(true);
-  const [serverMessage, setServerMessage] = useState("");
+  const [serverMessage, setServerMessage] = useState(
+    initialError
+      ? "Your brief could not be sent. Please try again or email us directly."
+      : "",
+  );
 
   function update<K extends keyof ContactPayload>(key: K, value: string) {
     setValues((prev) => ({ ...prev, [key]: value }));
@@ -68,9 +83,12 @@ export function ContactForm({
         errors?: ContactFieldErrors;
       };
 
-      if (!response.ok || !data.ok) {
+      if (!response.ok || !data.ok || !data.delivered) {
         if (data.errors) setErrors(data.errors);
-        throw new Error(data.error ?? "Could not send the brief.");
+        throw new Error(
+          data.error ??
+            "Your brief could not be delivered. Please email us directly.",
+        );
       }
 
       setDelivered(Boolean(data.delivered));
@@ -97,7 +115,12 @@ export function ContactForm({
             : "Your brief is in. Email delivery is not configured on this environment yet — please also email us so nothing sits in a log."}
           <span className="mt-4 block">
             <a className="underline underline-offset-4" href={mailtoHref()}>
-              Email {mailtoHref().replace(/^mailto:/, "").split("?")[0]}
+              Email{" "}
+              {
+                mailtoHref()
+                  .replace(/^mailto:/, "")
+                  .split("?")[0]
+              }
             </a>
           </span>
         </AlertDescription>
@@ -134,12 +157,7 @@ export function ContactForm({
         </label>
       </p>
       <div className="grid gap-5 sm:grid-cols-2">
-        <Field
-          id="name"
-          label="Name"
-          error={errors.name}
-          required
-        >
+        <Field id="name" label="Name" error={errors.name} required>
           <Input
             id="name"
             name="name"
@@ -199,11 +217,11 @@ export function ContactForm({
           aria-describedby={errors.service ? "service-error" : undefined}
           className="h-11 w-full rounded-none border border-input bg-transparent px-2.5 text-sm outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50"
         >
-          <option value="" className="bg-black">
-            Select a capability
+          <option value="" className="bg-white">
+            Choose a service
           </option>
           {serviceOptions.map((option) => (
-            <option key={option} value={option} className="bg-black">
+            <option key={option} value={option} className="bg-white">
               {option}
             </option>
           ))}

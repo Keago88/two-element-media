@@ -52,7 +52,6 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "48x48" },
-      { url: "/icon.png", type: "image/png", sizes: "512x512" },
     ],
     apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
   },
@@ -76,7 +75,6 @@ const jsonLd = {
     site.social.facebook,
     site.social.instagram,
     site.social.threads,
-    site.social.tiktok,
   ],
 };
 
@@ -84,7 +82,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html
       lang="en-ZA"
-      className={`dark ${dmSans.variable} ${syne.variable} min-h-svh scroll-smooth antialiased`}
+      className={`${dmSans.variable} ${syne.variable} min-h-svh scroll-smooth antialiased`}
     >
       <body
         className={`${dmSans.variable} ${syne.variable} ${dmSans.className} flex min-h-svh flex-col bg-background text-foreground`}

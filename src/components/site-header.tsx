@@ -1,9 +1,8 @@
 "use client";
-
+import { useState } from "react";
 import Link from "next/link";
-import { Menu } from "lucide-react";
+import { ArrowUpRight, Menu } from "lucide-react";
 import { Logo } from "@/components/logo";
-import { Button } from "@/components/ui/button";
 import {
   Sheet,
   SheetClose,
@@ -13,99 +12,48 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { mailtoHref, nav, whatsappHref } from "@/lib/site";
-
+const links = [
+  { href: "/#services", label: "Services" },
+  { href: "/#method", label: "Our approach" },
+  { href: "/#about", label: "The studio" },
+];
 export function SiteHeader() {
-  const whatsapp = whatsappHref();
-
+  const [open, setOpen] = useState(false);
   return (
-    <header className="sticky top-0 z-40 border-b border-white/10 bg-black">
-      <div className="mx-auto flex h-16 w-full max-w-[1120px] items-center justify-between px-5 sm:h-[4.5rem] sm:px-8">
+    <header className="site-header">
+      <div className="wrap header-inner">
         <Logo />
-        <nav
-          aria-label="Primary"
-          className="hidden items-center gap-8 md:flex"
-        >
-          {nav.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="text-xs font-medium tracking-[0.18em] text-muted-foreground uppercase transition-colors hover:text-foreground"
-            >
-              {item.label}
+        <nav aria-label="Primary" className="desktop-nav">
+          {links.map((l) => (
+            <Link key={l.href} href={l.href}>
+              {l.label}
             </Link>
           ))}
         </nav>
-        <div className="hidden items-center gap-5 md:flex">
-          <a
-            href={mailtoHref()}
-            className="text-xs tracking-[0.16em] text-muted-foreground uppercase transition-colors hover:text-foreground"
-          >
-            Email the studio
-          </a>
-          <Button
-            asChild
-            variant="outline"
-            className="h-9 rounded-none border-white/25 bg-transparent px-4 text-xs tracking-[0.16em] uppercase"
-          >
-            <a href="#contact">Start a brief</a>
-          </Button>
-        </div>
-        <Sheet>
-          <SheetTrigger asChild>
-            <Button
-              variant="outline"
-              size="icon"
-              className="rounded-none border-white/20 md:hidden"
-              aria-label="Open menu"
-            >
-              <Menu />
-            </Button>
+        <Link href="/#contact" className="button dark header-cta">
+          Let’s talk <ArrowUpRight size={17} />
+        </Link>
+        <Sheet open={open} onOpenChange={setOpen}>
+          <SheetTrigger className="menu-toggle" aria-label="Open menu">
+            <Menu />
           </SheetTrigger>
-          <SheetContent
-            side="right"
-            className="border-white/10 bg-black text-white sm:max-w-sm"
-          >
+          <SheetContent className="mobile-sheet">
             <SheetHeader>
-              <SheetTitle className="font-heading tracking-[0.28em]">
-                TWO ELEMENT
-              </SheetTitle>
-              <SheetDescription>Cape Town studio menu</SheetDescription>
+              <SheetTitle>Two Element Media</SheetTitle>
+              <SheetDescription>Your next step starts here.</SheetDescription>
             </SheetHeader>
-            <nav className="mt-8 flex flex-col gap-1 px-4" aria-label="Mobile">
-              {nav.map((item) => (
-                <SheetClose asChild key={item.href}>
-                  <Link
-                    href={item.href}
-                    className="border-b border-white/10 py-4 font-heading text-2xl tracking-tight"
-                  >
-                    {item.label}
-                  </Link>
-                </SheetClose>
-              ))}
-            </nav>
-            <div className="mt-8 flex flex-col gap-3 px-4">
-              <SheetClose asChild>
-                <Button asChild className="h-11 rounded-none">
-                  <a href="#contact">Start a brief</a>
-                </Button>
-              </SheetClose>
-              {whatsapp ? (
-                <SheetClose asChild>
-                  <Button asChild variant="outline" className="h-11 rounded-none">
-                    <a href={whatsapp} target="_blank" rel="noreferrer">
-                      WhatsApp
-                    </a>
-                  </Button>
-                </SheetClose>
-              ) : (
-                <SheetClose asChild>
-                  <Button asChild variant="outline" className="h-11 rounded-none">
-                    <a href={mailtoHref()}>Email the studio</a>
-                  </Button>
-                </SheetClose>
+            <nav aria-label="Mobile">
+              {[...links, { href: "/#contact", label: "Let’s talk" }].map(
+                (l) => (
+                  <SheetClose asChild key={l.href}>
+                    <Link href={l.href}>
+                      {l.label}
+                      <ArrowUpRight />
+                    </Link>
+                  </SheetClose>
+                ),
               )}
-            </div>
+            </nav>
           </SheetContent>
         </Sheet>
       </div>

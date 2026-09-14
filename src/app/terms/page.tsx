@@ -26,9 +26,8 @@ export default function TermsPage() {
           usage rights are agreed in writing after a brief.
         </p>
         <p>
-          Studio animations on the homepage are labelled as studio animations.
-          They show craft, systems, and growth — they are not client case
-          studies or testimonials.
+          The service descriptions explain our capabilities. Project deliverables
+          and timelines are confirmed in your individual scope of work.
         </p>
         <p>
           All original marks on this site — including the twin outlined

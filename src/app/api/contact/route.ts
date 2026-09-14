@@ -48,7 +48,8 @@ async function deliverEmail(payload: ContactPayload) {
   if (!apiKey || !to) return false;
 
   const from =
-    process.env.CONTACT_FROM_EMAIL ?? "Two Element Media <onboarding@resend.dev>";
+    process.env.CONTACT_FROM_EMAIL ??
+    "Two Element Media <onboarding@resend.dev>";
 
   const response = await fetch("https://api.resend.com/emails", {
     method: "POST",
@@ -76,7 +77,10 @@ async function deliverEmail(payload: ContactPayload) {
 export async function POST(request: Request) {
   if (rateLimited(clientKey(request))) {
     return NextResponse.json(
-      { ok: false, error: "Too many briefs from this network. Try again in a minute." },
+      {
+        ok: false,
+        error: "Too many briefs from this network. Try again in a minute.",
+      },
       { status: 429 },
     );
   }
@@ -120,12 +124,16 @@ export async function POST(request: Request) {
   try {
     const delivered = await deliverEmail(payload);
     if (!delivered) {
-      console.info("[contact] No email provider configured. Brief:", {
-        name: payload.name,
-        email: payload.email,
-        business: payload.business,
-        service: payload.service,
-      });
+      if (wantsHtml)
+        return NextResponse.redirect(new URL("/?error=1#contact", origin), 303);
+      return NextResponse.json(
+        {
+          ok: false,
+          error:
+            "Your brief could not be delivered. Please email hello@twoelement.media.",
+        },
+        { status: 503 },
+      );
     }
     if (wantsHtml) {
       return NextResponse.redirect(new URL("/?sent=1#contact", origin), 303);

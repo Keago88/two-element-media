@@ -25,7 +25,6 @@ export const site = {
     facebook: "https://www.facebook.com/twoemedia",
     instagram: "https://www.instagram.com/twoemedia",
     threads: "https://www.threads.net/@twoemedia",
-    tiktok: "https://www.tiktok.com/@twoemedia",
   },
 } as const;
 
@@ -41,14 +40,14 @@ export const services = [
   {
     id: "content",
     title: "Content",
-    kicker: "Words. Stills. Film.",
-    body: "Scripts, articles, photo direction, and short-form video that sound like your business - not like a template.",
+    kicker: "Words. Design. Clarity.",
+    body: "Website copy, articles, email content, and static graphics that sound like your business.",
   },
   {
     id: "social",
     title: "Social",
     kicker: "Calendars that ship",
-    body: "A weekly plan, captions, and replies across Instagram, Facebook, Threads, and TikTok. So Monday does not start on a blank phone.",
+    body: "A weekly plan, captions, and replies across Instagram, Facebook, and Threads. So Monday does not start on a blank phone.",
   },
   {
     id: "paid",
@@ -78,7 +77,7 @@ export const steps = [
   {
     n: "03",
     title: "Make",
-    body: "Write, shoot, design, set up. One review place. Edits welcome. Surprises are not.",
+    body: "Write, design, build, set up. One review place. Edits welcome. Surprises are not.",
   },
   {
     n: "04",
@@ -97,20 +96,20 @@ export const studioAnimations = [
   {
     id: "make",
     title: "Make",
-    caption: "Words, stills, and film pulled into one clear look.",
-    label: "Studio animation",
+    caption: "Words and design pulled into one clear look.",
+    label: "Studio process",
   },
   {
     id: "ship",
     title: "Ship",
     caption: "Calendars and campaigns that actually go live.",
-    label: "Studio animation",
+    label: "Studio process",
   },
   {
     id: "grow",
     title: "Grow",
     caption: "The same system, week after week - with a note on what changed.",
-    label: "Studio animation",
+    label: "Studio process",
   },
 ] as const;
 

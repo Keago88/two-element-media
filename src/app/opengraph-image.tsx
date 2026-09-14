@@ -75,7 +75,6 @@ export default async function OpenGraphImage() {
               for Cape Town SMEs
             </div>
           </div>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={logoSrc}
             alt=""
