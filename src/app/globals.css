@@ -1141,3 +1141,64 @@ h2 {
     display: none;
   }
 }
+
+/* Layered, scroll-linked depth. No pinning or scroll interception. */
+main > section, .site-footer {
+  --depth: 0px;
+  --depth-soft: 0px;
+  --depth-reverse: 0px;
+  position: relative;
+  isolation: isolate;
+}
+.hero-visual > img {
+  transform: translate3d(0, var(--depth), 0) scale(1.3);
+}
+.photo-top { transform: translate3d(0, var(--depth-reverse), 0); }
+.photo-caption { transform: translate3d(0, var(--depth-soft), 0); }
+.services-section, .connection, .method, .studio, .contact, .site-footer { overflow: clip; }
+.services-section::before, .connection::before, .method::before,
+.studio::before, .contact::before, .site-footer::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+  width: 380px;
+  height: 380px;
+  border: 1px solid rgb(36 80 239 / 10%);
+  border-radius: 50%;
+  right: -190px;
+  top: 70px;
+  transform: translate3d(0, var(--depth), 0);
+}
+.connection::before, .studio::before {
+  width: 620px;
+  height: 620px;
+  right: -180px;
+  top: -140px;
+  border-color: rgb(255 255 255 / 12%);
+  box-shadow: 0 0 0 60px rgb(255 255 255 / 3%), 0 0 0 120px rgb(255 255 255 / 2%);
+}
+.method::before { left: -250px; right: auto; top: 160px; }
+.contact::before { left: -200px; right: auto; top: 260px; }
+.site-footer::before { width: 240px; height: 240px; top: -90px; right: 28%; }
+@media (min-width: 768px) and (prefers-reduced-motion: no-preference) {
+  .hero-top .eyebrow, .hero-note, .section-heading > .eyebrow,
+  .connection .eyebrow, .studio-title .eyebrow, .contact .eyebrow {
+    transform: translate3d(0, var(--depth-reverse), 0);
+  }
+  .section-heading h2, .connection h2, .studio-title h2,
+  .contact h2, .footer-top > p {
+    transform: translate3d(0, var(--depth-soft), 0);
+  }
+  .card-top svg, .step-number, .studio-signature {
+    transform: translate3d(0, var(--depth-reverse), 0);
+  }
+  .card-top > span, .connection .deliverable {
+    transform: translate3d(0, var(--depth-soft), 0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-visual > img, .photo-top, .photo-caption,
+  .services-section::before, .connection::before, .method::before,
+  .studio::before, .contact::before, .site-footer::before { transform: none; }
+}

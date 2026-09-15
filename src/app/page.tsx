@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { PageParallax } from "@/components/page-parallax";
 import {
   ArrowUpRight,
   ArrowDown,
@@ -91,6 +92,7 @@ export default async function HomePage({
   const params = await searchParams;
   return (
     <>
+      <PageParallax />
       <section className="hero wrap" aria-labelledby="hero-heading">
         <div className="hero-top">
           <span className="eyebrow">Independent content & digital studio</span>
