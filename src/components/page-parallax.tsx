@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { coverProgress } from "@/lib/pin-progress";
 
 /** One scroll listener for the whole page; sections remain in normal flow. */
 export function PageParallax() {
@@ -11,8 +12,11 @@ export function PageParallax() {
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
     const revealTargets = Array.from(
       document.querySelectorAll<HTMLElement>(
-        ".section-heading, .service-card, .connection-grid > *, .steps article, .studio-grid > *, .contact-grid > *, .footer-top > *",
+        ".section-heading, .service-card, .connection-grid > *, .work-beats > *, .steps article, .studio-grid > *, .contact-grid > *, .footer-top > *",
       ),
+    );
+    const workBeats = Array.from(
+      document.querySelectorAll<HTMLElement>(".work-beat"),
     );
     const hero = document.querySelector<HTMLElement>(".hero");
     let frame = 0;
@@ -56,6 +60,12 @@ export function PageParallax() {
         "--page-progress",
         `${Math.min(1, Math.max(0, window.scrollY / pageRange))}`,
       );
+      workBeats.forEach((beat) => {
+        beat.style.setProperty(
+          "--p",
+          reduced.matches ? "0.62" : coverProgress(beat).toFixed(4),
+        );
+      });
     };
     const queue = () => {
       if (!frame) frame = requestAnimationFrame(render);
@@ -119,6 +129,7 @@ export function PageParallax() {
           section.style.removeProperty(key),
         );
       });
+      workBeats.forEach((beat) => beat.style.removeProperty("--p"));
     };
   }, []);
   return null;

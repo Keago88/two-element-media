@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/sheet";
 const links = [
   { href: "/#services", label: "Services" },
+  { href: "/#work", label: "Work" },
   { href: "/#method", label: "Our approach" },
   { href: "/#about", label: "The studio" },
 ];

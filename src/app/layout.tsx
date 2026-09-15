@@ -75,6 +75,7 @@ const jsonLd = {
     site.social.facebook,
     site.social.instagram,
     site.social.threads,
+    site.social.tiktok,
   ],
 };
 

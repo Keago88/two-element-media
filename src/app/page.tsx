@@ -10,11 +10,11 @@ import {
   MessageSquare,
 } from "lucide-react";
 import { ContactForm } from "@/components/contact-form";
-import { site, mailtoHref } from "@/lib/site";
+import { WorkBeats } from "@/components/work-beats";
+import { IndexLabel, mailtoHref, site, workIntro } from "@/lib/site";
 
 const services = [
   {
-    n: "01",
     icon: PenLine,
     name: "Content",
     line: "Find the words. Make your point.",
@@ -26,11 +26,10 @@ const services = [
     ],
   },
   {
-    n: "02",
     icon: MessageSquare,
     name: "Social media",
     line: "Show up with something to say.",
-    body: "A consistent presence with a plan behind every post. We take the weekly scramble off your plate.",
+    body: "A consistent presence with a plan behind every post—across Instagram, Facebook, Threads and TikTok. We take the weekly scramble off your plate.",
     items: [
       "Content planning & calendars",
       "Captions & scheduled publishing",
@@ -38,7 +37,6 @@ const services = [
     ],
   },
   {
-    n: "03",
     icon: Target,
     name: "Paid media",
     line: "Put your budget to work.",
@@ -50,7 +48,6 @@ const services = [
     ],
   },
   {
-    n: "04",
     icon: PanelsTopLeft,
     name: "Web & creative",
     line: "Turn interest into enquiries.",
@@ -64,22 +61,18 @@ const services = [
 ];
 const steps = [
   [
-    "01",
     "Get clear.",
     "We get to know your business, your customers and what you want to change.",
   ],
   [
-    "02",
     "Make a plan.",
     "You get a clear scope, deliverables and timeline before the work begins.",
   ],
   [
-    "03",
     "Bring it to life.",
     "We write, design and build. You review everything in one place.",
   ],
   [
-    "04",
     "Keep improving.",
     "We publish, measure and refine—with updates you can actually use.",
   ],
@@ -194,11 +187,11 @@ export default async function HomePage({
               <article
                 className="service-card"
                 id={["content", "social", "paid", "web"][i]}
-                key={s.n}
+                key={s.name}
               >
                 <div className="card-top">
                   <s.icon strokeWidth={1.5} size={28} />
-                  <span>{s.n}</span>
+                  <span>{IndexLabel.of(i)}</span>
                 </div>
                 <h3>{s.name}</h3>
                 <h4>{s.line}</h4>
@@ -222,28 +215,18 @@ export default async function HomePage({
           </div>
         </div>
       </section>
-      <section className="connection section-pad" id="work">
-        <div className="wrap connection-grid">
-          <div>
-            <span className="eyebrow">02 / The bigger picture</span>
+      <section className="work connection section-pad" id="work">
+        <div className="wrap">
+          <div className="section-heading">
+            <span className="eyebrow">02 / How the work moves</span>
             <h2>
-              Good on their own.
+              Make. Ship.
               <br />
-              <span>Better together.</span>
+              <span>Grow.</span>
             </h2>
+            <p>{workIntro.description}</p>
           </div>
-          <div className="connection-copy">
-            <p>
-              Your social posts, ads and website should tell the same story. We
-              connect the pieces so your customers get a clear message, wherever
-              they find you.
-            </p>
-            <div className="deliverable">
-              <span>One clear voice</span>
-              <span>A consistent look</span>
-              <span>An obvious next step</span>
-            </div>
-          </div>
+          <WorkBeats />
         </div>
       </section>
       <section className="method section-pad" id="method">
@@ -262,9 +245,9 @@ export default async function HomePage({
             </p>
           </div>
           <div className="steps">
-            {steps.map(([n, title, body]) => (
-              <article key={n}>
-                <span className="step-number">{n}</span>
+            {steps.map(([title, body], i) => (
+              <article key={title}>
+                <span className="step-number">{IndexLabel.of(i)}</span>
                 <h3>{title}</h3>
                 <p>{body}</p>
               </article>
@@ -324,6 +307,7 @@ export default async function HomePage({
               Need custom software or tooling? Our development side, Two Element
               Labs, can join when the brief calls for it.
             </p>
+            <p className="brand-line">{site.brandLine}</p>
           </div>
         </div>
       </section>

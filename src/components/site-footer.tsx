@@ -1,6 +1,16 @@
 import { ArrowUpRight } from "lucide-react";
 import { Logo } from "@/components/logo";
 import { site } from "@/lib/site";
+
+class FooterSocial {
+  static links = [
+    ["Instagram", site.social.instagram],
+    ["Facebook", site.social.facebook],
+    ["Threads", site.social.threads],
+    ["TikTok", site.social.tiktok],
+  ] as const;
+}
+
 export function SiteFooter() {
   return (
     <footer className="site-footer">
@@ -11,17 +21,15 @@ export function SiteFooter() {
             Content. Social. Paid. Web.
             <br />
             The right elements for your next chapter.
+            <br />
+            {site.brandLine}
           </p>
           <div className="footer-social">
-            <a href={site.social.instagram} target="_blank" rel="noreferrer">
-              Instagram <ArrowUpRight size={16} />
-            </a>
-            <a href={site.social.facebook} target="_blank" rel="noreferrer">
-              Facebook <ArrowUpRight size={16} />
-            </a>
-            <a href={site.social.threads} target="_blank" rel="noreferrer">
-              Threads <ArrowUpRight size={16} />
-            </a>
+            {FooterSocial.links.map(([label, href]) => (
+              <a key={label} href={href} target="_blank" rel="noreferrer">
+                {label} {site.socialHandle} <ArrowUpRight size={16} />
+              </a>
+            ))}
           </div>
         </div>
         <div className="footer-bottom">
