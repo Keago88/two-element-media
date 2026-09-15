@@ -25,8 +25,15 @@ export const site = {
     facebook: "https://www.facebook.com/twoemedia",
     instagram: "https://www.instagram.com/twoemedia",
     threads: "https://www.threads.net/@twoemedia",
+    tiktok: "https://www.tiktok.com/@twoemedia",
   },
 } as const;
+
+export class IndexLabel {
+  static of(index: number, width = 2) {
+    return String(index + 1).padStart(width, "0");
+  }
+}
 
 export const nav = [
   { href: "/#services", label: "Services" },
@@ -47,7 +54,7 @@ export const services = [
     id: "social",
     title: "Social",
     kicker: "Calendars that ship",
-    body: "A weekly plan, captions, and replies across Instagram, Facebook, and Threads. So Monday does not start on a blank phone.",
+    body: "A weekly plan, captions, and replies across Instagram, Facebook, Threads, and TikTok. So Monday does not start on a blank phone.",
   },
   {
     id: "paid",
