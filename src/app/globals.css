@@ -573,6 +573,13 @@ h2 {
 .connection .section-heading .eyebrow {
   color: #d7dcff;
 }
+.work .step-number {
+  color: #eef1ff;
+  border-color: rgb(255 255 255 / 32%);
+}
+.work .work-beat p {
+  color: #d7dcff;
+}
 
 /* Studio SVG beats. --p is cover progress from PageParallax; no pin. */
 .work-beat {
