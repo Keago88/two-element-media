@@ -118,12 +118,13 @@ export default async function HomePage({
           </div>
           <div className="hero-visual">
             <Image
-              src="/cape-town.jpg"
-              alt="Cape Town’s Atlantic coastline and Table Mountain"
+              src="/cape-town-dusk-hero.png"
+              alt="Cape Town’s Atlantic coastline and Table Mountain at dusk"
               fill
               priority
-              sizes="(max-width: 760px) 100vw, 42vw"
+              sizes="(max-width: 760px) 100vw, 52vw"
             />
+            <div className="hero-grid-overlay" aria-hidden="true" />
             <div className="image-shade" />
             <div className="photo-top">
               <span>
@@ -131,7 +132,6 @@ export default async function HomePage({
                 <br />
                 FRESH PERSPECTIVE.
               </span>
-              <span className="photo-plus">+</span>
             </div>
             <div className="photo-caption">
               <span>
