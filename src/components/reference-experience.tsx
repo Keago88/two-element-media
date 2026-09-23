@@ -66,12 +66,24 @@ export function ReferenceExperience({
     const el = host.current;
     if (!el) return;
     const panels = Array.from(el.querySelectorAll<HTMLElement>(".scene"));
+    const pieces = Array.from(
+      el.querySelectorAll<HTMLElement>(".assembly-piece"),
+    );
+    const assembly = el.querySelector<HTMLElement>(".assembly-stage");
+    const scatter = [
+      { x: -48, y: -46, rotation: -28, scale: 0.76 },
+      { x: 52, y: -28, rotation: 33, scale: 0.9 },
+      { x: -38, y: 38, rotation: 19, scale: 0.8 },
+      { x: 48, y: 56, rotation: -24, scale: 1.02 },
+    ];
+    const clamp = (value: number) => Math.max(0, Math.min(1, value));
     const wide = window.matchMedia(
       "(min-width: 951px) and (min-height: 650px)",
     );
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
     let isHorizontal = wide.matches && !reduced.matches;
     let frame = 0;
+    let resizeFrame = 0;
     let previous = -1;
     const paint = () => {
       frame = 0;
@@ -102,6 +114,28 @@ export function ReferenceExperience({
         el.style.setProperty("--travel", "0px");
         panels.forEach((panel) => panel.style.setProperty("--drift", "0px"));
       }
+      // One reversible timeline across the entire page, independent of chapter changes.
+      const end =
+        panels[3].getBoundingClientRect().top +
+        window.scrollY +
+        panels[3].offsetHeight -
+        window.innerHeight +
+        52;
+      const journey = reduced.matches
+        ? 1
+        : isHorizontal
+          ? progress / 3
+          : clamp(window.scrollY / Math.max(1, end));
+      pieces.forEach((piece, i) => {
+        const t = clamp((journey - i * 0.035) / (1 - i * 0.035));
+        const remaining = 1 - t * t * (3 - 2 * t);
+        const part = scatter[i];
+        piece.style.transform = `translate3d(${part.x * remaining}%, ${part.y * remaining}%, 0) rotate(${part.rotation * remaining}deg) scale(${1 + (part.scale - 1) * remaining})`;
+      });
+      assembly?.style.setProperty(
+        "--resolved",
+        String(clamp((journey - 0.78) / 0.22)),
+      );
       const index = Math.round(progress);
       if (index !== previous) {
         previous = index;
@@ -150,7 +184,10 @@ export function ReferenceExperience({
       const top = el.getBoundingClientRect().top + window.scrollY;
       const destination = isHorizontal
         ? top + (index * (el.offsetHeight - innerHeight)) / 3
-        : panels[index].getBoundingClientRect().top + window.scrollY - 64;
+        : panels[index].getBoundingClientRect().top +
+          window.scrollY -
+          64 -
+          (assembly?.offsetHeight ?? 0);
       window.scrollTo({
         top: Math.max(0, destination),
         behavior: smooth && !reduced.matches ? "smooth" : "instant",
@@ -174,26 +211,35 @@ export function ReferenceExperience({
       navigate(id);
     };
     const hash = () => navigate(location.hash.slice(1) || "home", false);
+    const resize = () => {
+      const index = Math.max(0, previous);
+      configure();
+      cancelAnimationFrame(resizeFrame);
+      resizeFrame = requestAnimationFrame(() =>
+        navigate(chapters[index], false),
+      );
+    };
     configure();
     const initialFrame = requestAnimationFrame(() => {
       hash();
       paint();
     });
     window.addEventListener("scroll", queue, { passive: true });
-    window.addEventListener("resize", configure);
+    window.addEventListener("resize", resize);
     window.addEventListener("hashchange", hash);
     document.addEventListener("click", click);
-    wide.addEventListener("change", configure);
-    reduced.addEventListener("change", configure);
+    wide.addEventListener("change", resize);
+    reduced.addEventListener("change", resize);
     return () => {
       cancelAnimationFrame(frame);
       cancelAnimationFrame(initialFrame);
+      cancelAnimationFrame(resizeFrame);
       window.removeEventListener("scroll", queue);
-      window.removeEventListener("resize", configure);
+      window.removeEventListener("resize", resize);
       window.removeEventListener("hashchange", hash);
       document.removeEventListener("click", click);
-      wide.removeEventListener("change", configure);
-      reduced.removeEventListener("change", configure);
+      wide.removeEventListener("change", resize);
+      reduced.removeEventListener("change", resize);
       document.documentElement.style.removeProperty("--reading-progress");
     };
   }, []);
@@ -223,182 +269,214 @@ export function ReferenceExperience({
     <>
       <div ref={host} className="experience" data-horizontal={horizontal}>
         <div className="experience-viewport">
-          <div className="scene-track">
-            <section
-              id="home"
-              className="scene scene-home"
-              aria-labelledby="home-title"
-              {...accessibility(0)}
-            >
-              <div className="scene-label">
-                Two Element Media <span>Cape Town, South Africa</span>
-              </div>
-              <h1 id="home-title" className="editorial-title">
-                CONTENT.
-                <br />
-                SOCIAL.
-                <br />
-                <span>PAID. WEB.</span>
-              </h1>
-              <div className="home-bottom">
-                <p>
-                  We write, design and manage digital marketing for small and
-                  medium businesses in Cape Town.
-                </p>
-                <a href="#services" data-scene="services" className="text-cta">
-                  Explore our services <ArrowDown size={20} />
-                </a>
-              </div>
-            </section>
-            <section
-              id="about"
-              className="scene scene-about"
-              aria-labelledby="about-title"
-              {...accessibility(1)}
-            >
-              <div className="scene-label">01 / The studio</div>
-              <div className="studio-layout">
-                <div>
-                  <h2 id="about-title">
-                    A Cape Town
-                    <br />
-                    digital studio.
-                  </h2>
-                  <div className="studio-copy">
-                    <p>
-                      Two Element Media helps small and medium businesses with
-                      content, social media, paid advertising and websites.
-                    </p>
-                    <p>
-                      Need regular support or a single project? Tell us what you
-                      need help with. We’ll work out the scope, cost and
-                      timeline with you.
-                    </p>
-                  </div>
-                  <a href="#contact" data-scene="contact" className="text-cta">
-                    Work with us <ArrowUpRight size={20} />
-                  </a>
+          <div className="assembly-stage" aria-hidden="true">
+            <div className="assembly-field">
+              {[0, 1, 2, 3].map((i) => (
+                <div key={i} className={`assembly-piece piece-${i}`} />
+              ))}
+            </div>
+            <div className="assembly-lockup">
+              TWO ELEMENT
+              <br />
+              MEDIA
+            </div>
+            <div className="assembly-services">
+              <span>Content</span>
+              <span>Social</span>
+              <span>Paid</span>
+              <span>Web</span>
+            </div>
+          </div>
+          <div className="scene-window">
+            <div className="scene-track">
+              <section
+                id="home"
+                className="scene scene-home"
+                aria-labelledby="home-title"
+                {...accessibility(0)}
+              >
+                <div className="scene-label">
+                  Two Element Media <span>Cape Town, South Africa</span>
                 </div>
-                <figure className="studio-photo">
-                  <div>
-                    <Image
-                      src="/cape-town.jpg"
-                      alt="Table Mountain and Cape Town"
-                      fill
-                      sizes="(max-width:950px) 90vw, 40vw"
-                    />
-                  </div>
-                  <figcaption>Cape Town, South Africa</figcaption>
-                </figure>
-              </div>
-            </section>
-            <section
-              id="services"
-              className="scene scene-services"
-              aria-labelledby="services-title"
-              {...accessibility(2)}
-            >
-              <div className="scene-label">02 / Services</div>
-              <div className="services-layout">
-                <div>
-                  <h2 id="services-title">What we do.</h2>
-                  <p className="section-intro">
-                    Choose a service to see what’s included.
-                  </p>
-                  <a href="#contact" data-scene="contact" className="text-cta">
-                    Discuss a project <ArrowUpRight size={20} />
-                  </a>
-                </div>
-                <div className="service-accordion">
-                  {elements.map((item, i) => (
-                    <article className="service-row" key={item.value}>
-                      <h3>
-                        <button
-                          type="button"
-                          aria-expanded={expanded === i}
-                          aria-controls={`service-panel-${i}`}
-                          onClick={() => setExpanded(expanded === i ? -1 : i)}
-                        >
-                          <span className="service-number">0{i + 1}</span>
-                          <span>{item.title}</span>
-                          {expanded === i ? (
-                            <Minus size={20} />
-                          ) : (
-                            <Plus size={20} />
-                          )}
-                        </button>
-                      </h3>
-                      <div
-                        id={`service-panel-${i}`}
-                        hidden={expanded !== i}
-                        className="service-description"
-                      >
-                        <p>{item.body}</p>
-                        <small>{item.items}</small>
-                        <button
-                          type="button"
-                          className="text-cta"
-                          onClick={() => startBrief(item.value)}
-                        >
-                          Enquire about {item.title.toLowerCase()}{" "}
-                          <ArrowUpRight size={16} />
-                        </button>
-                      </div>
-                    </article>
-                  ))}
-                </div>
-              </div>
-            </section>
-            <section
-              id="contact"
-              className="scene scene-contact"
-              aria-labelledby="contact-title"
-              {...accessibility(3)}
-            >
-              <div className="scene-label">
-                03 / Contact <span>{site.hours}</span>
-              </div>
-              <h2 id="contact-title" className="editorial-title">
-                TELL US
-                <br />
-                WHAT YOU
-                <br />
-                <span>NEED.</span>
-              </h2>
-              <div className="contact-bottom">
-                <div>
+                <h1 id="home-title" className="editorial-title">
+                  CONTENT.
+                  <br />
+                  SOCIAL.
+                  <br />
+                  <span>PAID. WEB.</span>
+                </h1>
+                <div className="home-bottom">
                   <p>
-                    Share a few details about your business and the work you
-                    have in mind.
+                    We write, design and manage digital marketing for small and
+                    medium businesses in Cape Town.
                   </p>
-                  <a className="contact-email" href={mailtoHref()}>
-                    {site.email} <ArrowUpRight size={18} />
+                  <a
+                    href="#services"
+                    data-scene="services"
+                    className="text-cta"
+                  >
+                    Explore our services <ArrowDown size={20} />
                   </a>
                 </div>
-                <button
-                  className="enquiry-button"
-                  onClick={() => startBrief()}
-                  type="button"
-                >
-                  Send an enquiry <ArrowUpRight size={26} />
-                </button>
-              </div>
-              <div className="contact-socials">
-                {[
-                  ["Instagram", site.social.instagram],
-                  ["Facebook", site.social.facebook],
-                  ["Threads", site.social.threads],
-                  ["TikTok", site.social.tiktok],
-                ].map(([label, href]) => (
-                  <a key={label} href={href} target="_blank" rel="noreferrer">
-                    {label}
-                    <ArrowUpRight size={12} />
-                  </a>
-                ))}
-                <a href="/privacy">Privacy</a>
-                <a href="/terms">Terms</a>
-              </div>
-            </section>
+              </section>
+              <section
+                id="about"
+                className="scene scene-about"
+                aria-labelledby="about-title"
+                {...accessibility(1)}
+              >
+                <div className="scene-label">01 / The studio</div>
+                <div className="studio-layout">
+                  <div>
+                    <h2 id="about-title">
+                      A Cape Town
+                      <br />
+                      digital studio.
+                    </h2>
+                    <div className="studio-copy">
+                      <p>
+                        Two Element Media helps small and medium businesses with
+                        content, social media, paid advertising and websites.
+                      </p>
+                      <p>
+                        Need regular support or a single project? Tell us what
+                        you need help with. We’ll work out the scope, cost and
+                        timeline with you.
+                      </p>
+                    </div>
+                    <a
+                      href="#contact"
+                      data-scene="contact"
+                      className="text-cta"
+                    >
+                      Work with us <ArrowUpRight size={20} />
+                    </a>
+                  </div>
+                  <figure className="studio-photo">
+                    <div>
+                      <Image
+                        src="/cape-town.jpg"
+                        alt="Table Mountain and Cape Town"
+                        fill
+                        sizes="(max-width:950px) 90vw, 40vw"
+                      />
+                    </div>
+                    <figcaption>Cape Town, South Africa</figcaption>
+                  </figure>
+                </div>
+              </section>
+              <section
+                id="services"
+                className="scene scene-services"
+                aria-labelledby="services-title"
+                {...accessibility(2)}
+              >
+                <div className="scene-label">02 / Services</div>
+                <div className="services-layout">
+                  <div>
+                    <h2 id="services-title">What we do.</h2>
+                    <p className="section-intro">
+                      Choose a service to see what’s included.
+                    </p>
+                    <a
+                      href="#contact"
+                      data-scene="contact"
+                      className="text-cta"
+                    >
+                      Discuss a project <ArrowUpRight size={20} />
+                    </a>
+                  </div>
+                  <div className="service-accordion">
+                    {elements.map((item, i) => (
+                      <article className="service-row" key={item.value}>
+                        <h3>
+                          <button
+                            type="button"
+                            aria-expanded={expanded === i}
+                            aria-controls={`service-panel-${i}`}
+                            onClick={() => setExpanded(expanded === i ? -1 : i)}
+                          >
+                            <span className="service-number">0{i + 1}</span>
+                            <span>{item.title}</span>
+                            {expanded === i ? (
+                              <Minus size={20} />
+                            ) : (
+                              <Plus size={20} />
+                            )}
+                          </button>
+                        </h3>
+                        <div
+                          id={`service-panel-${i}`}
+                          hidden={expanded !== i}
+                          className="service-description"
+                        >
+                          <p>{item.body}</p>
+                          <small>{item.items}</small>
+                          <button
+                            type="button"
+                            className="text-cta"
+                            onClick={() => startBrief(item.value)}
+                          >
+                            Enquire about {item.title.toLowerCase()}{" "}
+                            <ArrowUpRight size={16} />
+                          </button>
+                        </div>
+                      </article>
+                    ))}
+                  </div>
+                </div>
+              </section>
+              <section
+                id="contact"
+                className="scene scene-contact"
+                aria-labelledby="contact-title"
+                {...accessibility(3)}
+              >
+                <div className="scene-label">
+                  03 / Contact <span>{site.hours}</span>
+                </div>
+                <h2 id="contact-title" className="editorial-title">
+                  TELL US
+                  <br />
+                  WHAT YOU
+                  <br />
+                  <span>NEED.</span>
+                </h2>
+                <div className="contact-bottom">
+                  <div>
+                    <p>
+                      Share a few details about your business and the work you
+                      have in mind.
+                    </p>
+                    <a className="contact-email" href={mailtoHref()}>
+                      {site.email} <ArrowUpRight size={18} />
+                    </a>
+                  </div>
+                  <button
+                    className="enquiry-button"
+                    onClick={() => startBrief()}
+                    type="button"
+                  >
+                    Send an enquiry <ArrowUpRight size={26} />
+                  </button>
+                </div>
+                <div className="contact-socials">
+                  {[
+                    ["Instagram", site.social.instagram],
+                    ["Facebook", site.social.facebook],
+                    ["Threads", site.social.threads],
+                    ["TikTok", site.social.tiktok],
+                  ].map(([label, href]) => (
+                    <a key={label} href={href} target="_blank" rel="noreferrer">
+                      {label}
+                      <ArrowUpRight size={12} />
+                    </a>
+                  ))}
+                  <a href="/privacy">Privacy</a>
+                  <a href="/terms">Terms</a>
+                </div>
+              </section>
+            </div>
           </div>
           <div className="chapter-bar">
             <nav aria-label="Page chapters">
