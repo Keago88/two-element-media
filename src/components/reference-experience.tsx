@@ -20,25 +20,25 @@ const elements = [
   {
     title: "Content",
     value: "Content",
-    body: "The right words. A recognisable look. Copy and design that make your business clear, consistent, and worth a second look.",
+    body: "Website copy, emails, graphics and carousels. Written and designed for your business.",
     items: "Website copy · Email content · Static graphics & carousels",
   },
   {
     title: "Social media",
     value: "Social",
-    body: "A plan for your presence. We take care of calendars, captions, publishing, and community across Instagram, Facebook, Threads, and TikTok.",
+    body: "Content planning, captions, publishing and comment management for your social accounts.",
     items: "Content calendars · Scheduled posts · Community management",
   },
   {
     title: "Paid media",
     value: "Paid media",
-    body: "Put your offer in front of the right people. Focused Meta and Google campaigns with a clear budget, useful reporting, and room to improve.",
+    body: "Meta and Google advertising, from campaign setup to ongoing management and reporting.",
     items: "Campaign strategy · Audience targeting · Optimisation & reporting",
   },
   {
     title: "Web & creative",
     value: "Web & creative",
-    body: "A good first impression. A clear next step. Fast, considered websites and landing pages that turn interest into enquiries.",
+    body: "Business websites, landing pages and campaign design. Clear information, fast pages and an easy way to get in touch.",
     items: "Business websites · Landing pages · Brand & campaign creative",
   },
 ];
@@ -230,292 +230,159 @@ export function ReferenceExperience({
               aria-labelledby="home-title"
               {...accessibility(0)}
             >
-              <div className="draft-grid" aria-hidden="true" />
-              <div className="scene-meta home-meta">
-                <span>[CPT — ZA]</span>
-                <span>INDEPENDENT BY NATURE</span>
+              <div className="scene-label">
+                Two Element Media <span>Cape Town, South Africa</span>
               </div>
-              <nav className="hero-services" aria-label="Our four services">
-                {elements.map((item, i) => (
-                  <a
-                    key={item.value}
-                    href={`#${["content", "social", "paid", "web"][i]}`}
-                    data-scene={["content", "social", "paid", "web"][i]}
-                  >
-                    <span>0{i + 1}</span>
-                    {item.title}
-                  </a>
-                ))}
-              </nav>
-              <div className="hero-orange" aria-hidden="true" />
-              <div className="hero-object stage-art">
-                <Image
-                  src="/images/digital-workstation.webp"
-                  alt="Sculptural black and chrome workstation with blank orange screens"
-                  width={1122}
-                  height={1402}
-                  priority
-                  sizes="(max-width: 950px) 95vw, 68vw"
-                />
-              </div>
-              <a
-                href="#about"
-                data-scene="about"
-                className="studio-preview"
-                aria-label="Meet Two Element Media"
-              >
-                <span className="cut-corner" />
-                <Image
-                  src="/images/content-sculpture.webp"
-                  alt="Unbranded phone and sculptural folded paper"
-                  width={1122}
-                  height={1402}
-                  priority
-                  sizes="(max-width: 950px) 42vw, 26vw"
-                />
-                <span className="vertical-caption">THE STUDIO</span>
-                <span className="square-arrow">
-                  <ArrowRight />
-                </span>
-              </a>
-              <p className="hero-intro">
-                Good businesses deserve to be seen. Content, social, paid media,
-                and websites for Cape Town businesses ready for their next
-                chapter.
-              </p>
-              <h1 className="hero-title" id="home-title">
-                SMALL BUSINESS.
+              <h1 id="home-title" className="editorial-title">
+                CONTENT.
                 <br />
-                BIG PRESENCE.
+                SOCIAL.
+                <br />
+                <span>PAID. WEB.</span>
               </h1>
-              <div className="hero-coordinate">
-                [33.9249° S]
-                <br />
-                [18.4241° E]
+              <div className="home-bottom">
+                <p>
+                  We write, design and manage digital marketing for small and
+                  medium businesses in Cape Town.
+                </p>
+                <a href="#services" data-scene="services" className="text-cta">
+                  Explore our services <ArrowDown size={20} />
+                </a>
               </div>
-              <a href="#about" data-scene="about" className="scroll-cue">
-                SCROLL TO EXPLORE <ArrowDown size={15} />
-              </a>
             </section>
-
             <section
               id="about"
               className="scene scene-about"
               aria-labelledby="about-title"
               {...accessibility(1)}
             >
-              <div className="draft-grid" aria-hidden="true" />
-              <div className="scene-meta about-meta">[01 — OUR STUDIO]</div>
-              <h2 id="about-title" className="about-title">
-                LOCAL ROOTS.
-                <br />
-                BIGGER THINKING.
-              </h2>
-              <div className="about-art stage-art">
-                <span className="cut-corner" />
-                <Image
-                  src="/images/content-sculpture.webp"
-                  alt="Black phone with blank paper, rendered as a creative studio sculpture"
-                  width={1122}
-                  height={1402}
-                  sizes="(max-width: 950px) 75vw, 40vw"
-                />
-                <a
-                  href="#services"
-                  data-scene="services"
-                  className="square-arrow"
-                  aria-label="Explore our services"
-                >
-                  <ArrowRight />
-                </a>
-              </div>
-              <div className="about-copy">
-                <p>
-                  We’re Two Element Media. An independent content and digital
-                  studio for small and medium businesses in Cape Town.
-                </p>
-                <p>
-                  We connect what you say, how you look, and where you show up.
-                  One clear direction. Creative work that earns its place in
-                  your business.
-                </p>
-                <a href="#contact" data-scene="contact" className="inline-link">
-                  Meet your next creative partner <ArrowUpRight size={17} />
-                </a>
-              </div>
-              <div className="local-proof">
-                <div className="cape-photo">
-                  <Image
-                    src="/cape-town.jpg"
-                    alt="Cape Town, home of Two Element Media"
-                    fill
-                    sizes="(max-width:950px) 80vw, 23vw"
-                  />
-                </div>
-                <span>[BASED HERE. BUILT AROUND YOU.]</span>
-                <p>
-                  From the CBD to the Atlantic Seaboard and Southern Suburbs.
-                </p>
-              </div>
-              <div className="studio-principles">
+              <div className="scene-label">01 / The studio</div>
+              <div className="studio-layout">
                 <div>
-                  <span>01</span>
-                  <p>
-                    A clear scope
+                  <h2 id="about-title">
+                    A Cape Town
                     <br />
-                    <strong>Before we start.</strong>
-                  </p>
+                    digital studio.
+                  </h2>
+                  <div className="studio-copy">
+                    <p>
+                      Two Element Media helps small and medium businesses with
+                      content, social media, paid advertising and websites.
+                    </p>
+                    <p>
+                      Need regular support or a single project? Tell us what you
+                      need help with. We’ll work out the scope, cost and
+                      timeline with you.
+                    </p>
+                  </div>
+                  <a href="#contact" data-scene="contact" className="text-cta">
+                    Work with us <ArrowUpRight size={20} />
+                  </a>
                 </div>
-                <div>
-                  <span>02</span>
-                  <p>
-                    Considered work
-                    <br />
-                    <strong>Made for your business.</strong>
-                  </p>
-                </div>
-                <div>
-                  <span>03</span>
-                  <p>
-                    Plain-English updates
-                    <br />
-                    <strong>At every step.</strong>
-                  </p>
-                </div>
+                <figure className="studio-photo">
+                  <div>
+                    <Image
+                      src="/cape-town.jpg"
+                      alt="Table Mountain and Cape Town"
+                      fill
+                      sizes="(max-width:950px) 90vw, 40vw"
+                    />
+                  </div>
+                  <figcaption>Cape Town, South Africa</figcaption>
+                </figure>
               </div>
             </section>
-
             <section
               id="services"
               className="scene scene-services"
               aria-labelledby="services-title"
               {...accessibility(2)}
             >
-              <div className="draft-grid" aria-hidden="true" />
-              <div className="scene-meta services-meta">[02 — WHAT WE DO]</div>
-              <p className="services-intro">
-                Four elements. One joined-up presence.
-                <br />
-                Start with what your business needs.
-              </p>
-              <div className="service-accordion">
-                {elements.map((item, i) => (
-                  <article
-                    className={
-                      expanded === i ? "service-row is-open" : "service-row"
-                    }
-                    key={item.value}
-                  >
-                    <h3>
-                      <button
-                        type="button"
-                        aria-expanded={expanded === i}
-                        aria-controls={`service-panel-${i}`}
-                        onClick={() => setExpanded(expanded === i ? -1 : i)}
+              <div className="scene-label">02 / Services</div>
+              <div className="services-layout">
+                <div>
+                  <h2 id="services-title">What we do.</h2>
+                  <p className="section-intro">
+                    Choose a service to see what’s included.
+                  </p>
+                  <a href="#contact" data-scene="contact" className="text-cta">
+                    Discuss a project <ArrowUpRight size={20} />
+                  </a>
+                </div>
+                <div className="service-accordion">
+                  {elements.map((item, i) => (
+                    <article className="service-row" key={item.value}>
+                      <h3>
+                        <button
+                          type="button"
+                          aria-expanded={expanded === i}
+                          aria-controls={`service-panel-${i}`}
+                          onClick={() => setExpanded(expanded === i ? -1 : i)}
+                        >
+                          <span className="service-number">0{i + 1}</span>
+                          <span>{item.title}</span>
+                          {expanded === i ? (
+                            <Minus size={20} />
+                          ) : (
+                            <Plus size={20} />
+                          )}
+                        </button>
+                      </h3>
+                      <div
+                        id={`service-panel-${i}`}
+                        hidden={expanded !== i}
+                        className="service-description"
                       >
-                        <span className="service-number">0{i + 1}</span>
-                        <span>{item.title}</span>
-                        {expanded === i ? (
-                          <Minus size={19} />
-                        ) : (
-                          <Plus size={19} />
-                        )}
-                      </button>
-                    </h3>
-                    <div
-                      id={`service-panel-${i}`}
-                      hidden={expanded !== i}
-                      className="service-description"
-                    >
-                      <p>{item.body}</p>
-                      <small>{item.items}</small>
-                      <button
-                        type="button"
-                        className="inline-link"
-                        onClick={() => startBrief(item.value)}
-                      >
-                        Let’s talk {item.title.toLowerCase()}
-                        <ArrowUpRight size={16} />
-                      </button>
-                    </div>
-                  </article>
-                ))}
-              </div>
-              <div className="services-orange" aria-hidden="true" />
-              <div className="services-art stage-art">
-                <Image
-                  src="/images/digital-workstation.webp"
-                  alt="Precision-crafted digital workstation, with blank unbranded screens"
-                  width={1122}
-                  height={1402}
-                  sizes="(max-width:950px) 80vw, 55vw"
-                />
-              </div>
-              <h2 className="services-title" id="services-title">
-                THE RIGHT
-                <br />
-                ELEMENTS.
-              </h2>
-              <div className="services-footnote">
-                CONTENT / SOCIAL / PAID / WEB
+                        <p>{item.body}</p>
+                        <small>{item.items}</small>
+                        <button
+                          type="button"
+                          className="text-cta"
+                          onClick={() => startBrief(item.value)}
+                        >
+                          Enquire about {item.title.toLowerCase()}{" "}
+                          <ArrowUpRight size={16} />
+                        </button>
+                      </div>
+                    </article>
+                  ))}
+                </div>
               </div>
             </section>
-
             <section
               id="contact"
               className="scene scene-contact"
               aria-labelledby="contact-title"
               {...accessibility(3)}
             >
-              <div className="draft-grid" aria-hidden="true" />
-              <div className="contact-top">
-                <span>[03 — YOUR NEXT CHAPTER]</span>
-                <a href={mailtoHref()}>
-                  {site.email}
-                  <ArrowUpRight size={14} />
-                </a>
-                <span>
-                  Cape Town, South Africa
-                  <br />
-                  {site.hours}
-                </span>
+              <div className="scene-label">
+                03 / Contact <span>{site.hours}</span>
               </div>
-              <h2 id="contact-title" className="contact-title">
-                GOT A PROJECT?
+              <h2 id="contact-title" className="editorial-title">
+                TELL US
                 <br />
-                LET’S MAKE IT
-                <br className="mobile-only" /> HAPPEN.
+                WHAT YOU
+                <br />
+                <span>NEED.</span>
               </h2>
-              <p className="contact-intro">
-                Tell us where you are and where you want to go. We’ll help you
-                work out the next step.
-              </p>
-              <div className="contact-art stage-art">
-                <Image
-                  src="/images/content-sculpture.webp"
-                  alt="Sculptural arrangement of blank creative materials"
-                  width={1226}
-                  height={1283}
-                  sizes="(max-width:950px) 80vw, 47vw"
-                />
+              <div className="contact-bottom">
+                <div>
+                  <p>
+                    Share a few details about your business and the work you
+                    have in mind.
+                  </p>
+                  <a className="contact-email" href={mailtoHref()}>
+                    {site.email} <ArrowUpRight size={18} />
+                  </a>
+                </div>
+                <button
+                  className="enquiry-button"
+                  onClick={() => startBrief()}
+                  type="button"
+                >
+                  Send an enquiry <ArrowUpRight size={26} />
+                </button>
               </div>
-              <button
-                className="contact-banner"
-                onClick={() => startBrief()}
-                type="button"
-              >
-                <span className="contact-banner-note">
-                  A GOOD CONVERSATION
-                  <br />
-                  IS A GOOD START.
-                </span>
-                <ArrowRight className="contact-arrow" strokeWidth={1.6} />
-                <span className="contact-banner-title">
-                  GET IN
-                  <br />
-                  TOUCH.
-                </span>
-              </button>
               <div className="contact-socials">
                 {[
                   ["Instagram", site.social.instagram],
@@ -528,9 +395,6 @@ export function ReferenceExperience({
                     <ArrowUpRight size={12} />
                   </a>
                 ))}
-              </div>
-              <div className="contact-legal">
-                <span>© {new Date().getFullYear()} Two Element Media</span>
                 <a href="/privacy">Privacy</a>
                 <a href="/terms">Terms</a>
               </div>
@@ -594,14 +458,9 @@ export function ReferenceExperience({
             <X size={22} />
           </button>
           <span className="eyebrow">TWO ELEMENT MEDIA / START A BRIEF</span>
-          <h2 id="brief-title">
-            Let’s make
-            <br />a start.
-          </h2>
+          <h2 id="brief-title">Send an enquiry.</h2>
           <p className="brief-intro">
-            A few details. A good conversation.
-            <br />
-            Usually back to you within one business day.
+            Tell us about your business, the work you need and your timeline.
           </p>
           <ContactForm
             key={`${service}-${briefOpen}`}

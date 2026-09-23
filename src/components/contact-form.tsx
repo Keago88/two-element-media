@@ -227,7 +227,7 @@ export function ContactForm({
           ))}
         </select>
       </Field>
-      <Field id="message" label="The brief" error={errors.message} required>
+      <Field id="message" label="Your message" error={errors.message} required>
         <Textarea
           id="message"
           name="message"
@@ -236,7 +236,7 @@ export function ContactForm({
           onChange={(event) => update("message", event.target.value)}
           aria-invalid={Boolean(errors.message)}
           aria-describedby={errors.message ? "message-error" : undefined}
-          placeholder="What you sell, who it is for, and what should move in the next 90 days."
+          placeholder="What do you need help with? Include any dates or budget you have in mind."
           className="min-h-32 rounded-none bg-transparent"
         />
       </Field>
@@ -264,7 +264,7 @@ export function ContactForm({
             Sending
           </>
         ) : (
-          "Send the brief"
+          "Send enquiry"
         )}
       </Button>
     </form>
