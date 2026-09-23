@@ -29,8 +29,8 @@
   --muted-foreground: #676762;
   --border: #deded7;
   --orange: #ff643d;
-  --rail: 56px;
-  --header: 64px;
+  --rail: 68px;
+  --header: 77px;
 }
 * {
   box-sizing: border-box;
@@ -106,9 +106,8 @@ button:focus-visible {
   background: #000;
 }
 .rail-logo {
-  /* One step larger than the rail/header tokens so only this corner box grows. */
-  width: 68px;
-  height: 77px;
+  width: var(--rail);
+  height: var(--header);
   z-index: 1;
 }
 .rail-logo img,
@@ -128,9 +127,9 @@ button:focus-visible {
 .rail-name {
   position: absolute;
   top: 88px;
-  left: 18px;
+  left: 50%;
   writing-mode: vertical-rl;
-  transform: rotate(180deg);
+  transform: translateX(-50%) rotate(180deg);
   font-size: 12px;
   letter-spacing: -0.02em;
   font-weight: 600;
@@ -139,9 +138,9 @@ button:focus-visible {
 .rail-location {
   position: absolute;
   bottom: 32px;
-  left: 20px;
+  left: 50%;
   writing-mode: vertical-rl;
-  transform: rotate(180deg);
+  transform: translateX(-50%) rotate(180deg);
   font-size: 8px;
   letter-spacing: 0.09em;
   white-space: nowrap;
@@ -178,8 +177,9 @@ button:focus-visible {
   display: flex;
   gap: 42px;
   position: absolute;
+  top: 50%;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translate(-50%, -50%);
   font-size: 12px;
 }
 .header-navigation a {
@@ -243,7 +243,7 @@ button:focus-visible {
   overflow: hidden;
   isolation: isolate;
   background: var(--background);
-  scroll-margin-top: 64px;
+  scroll-margin-top: var(--header);
 }
 .experience[data-horizontal="true"] {
   height: 400svh;
@@ -394,11 +394,11 @@ button:focus-visible {
   font-size: clamp(60px, 6.3vw, 105px);
 }
 .experience[data-horizontal="false"] {
-  padding-top: 64px;
+  padding-top: var(--header);
 }
 .experience[data-horizontal="false"] .assembly-stage {
   position: sticky;
-  top: 64px;
+  top: var(--header);
   width: 100%;
   height: 230px;
   background: var(--background);
@@ -804,27 +804,21 @@ body:has(.experience[data-horizontal="true"]) .site-footer {
   margin-right: auto;
 }
 body:not(:has(.experience)) main {
-  padding-top: 64px;
+  padding-top: var(--header);
 }
 @media (max-width: 950px) {
   :root {
-    --rail: 36px;
-    --header: 64px;
-  }
-  .rail-logo {
-    width: 44px;
-    height: 77px;
+    --rail: 44px;
+    --header: 77px;
   }
   .rail-logo img {
     width: 148px;
   }
   .rail-name {
-    left: 11px;
     top: 84px;
     font-size: 10px;
   }
   .rail-location {
-    left: 12px;
     font-size: 7px;
     bottom: 70px;
   }
@@ -842,14 +836,14 @@ body:not(:has(.experience)) main {
     display: grid;
     place-items: center;
     width: 48px;
-    height: 64px;
+    height: var(--header);
     border: 0;
     background: var(--background);
   }
   .mobile-navigation {
     position: absolute;
     display: grid;
-    top: 64px;
+    top: var(--header);
     left: 0;
     right: 0;
     padding: 24px;
