@@ -106,8 +106,10 @@ button:focus-visible {
   background: #000;
 }
 .rail-logo {
-  width: var(--rail);
-  height: var(--header);
+  /* One step larger than the rail/header tokens so only this corner box grows. */
+  width: 68px;
+  height: 77px;
+  z-index: 1;
 }
 .rail-logo img,
 .footer-logo img {
@@ -118,6 +120,10 @@ button:focus-visible {
   top: 48%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+.rail-logo img {
+  width: 216px;
+  object-fit: contain;
 }
 .rail-name {
   position: absolute;
@@ -805,8 +811,12 @@ body:not(:has(.experience)) main {
     --rail: 36px;
     --header: 64px;
   }
+  .rail-logo {
+    width: 44px;
+    height: 77px;
+  }
   .rail-logo img {
-    width: 123px;
+    width: 148px;
   }
   .rail-name {
     left: 11px;
