@@ -104,8 +104,12 @@ export default async function HomePage({
               you.
             </p>
             <div className="hero-actions">
-              <a className="button blue" href="#contact">
-                Let’s talk about your business <ArrowUpRight size={20} />
+              <a
+                className="button blue"
+                href="#contact"
+                aria-label="Let’s talk about your business"
+              >
+                Let’s talk <ArrowUpRight size={20} />
               </a>
               <a className="text-link" href="#services">
                 Explore services <ArrowDown size={17} />
