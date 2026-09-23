@@ -12,7 +12,7 @@ export function DevBadge() {
       style={{
         position: "fixed",
         right: 12,
-        bottom: 12,
+        bottom: 64,
         zIndex: 200,
         display: "flex",
         alignItems: "center",
