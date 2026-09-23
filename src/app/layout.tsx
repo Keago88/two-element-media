@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import { DM_Sans, Syne } from "next/font/google";
+import { DM_Sans } from "next/font/google";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { site } from "@/lib/site";
@@ -9,14 +9,6 @@ import "./globals.css";
 const dmSans = DM_Sans({
   subsets: ["latin"],
   variable: "--font-dm-sans",
-  display: "swap",
-  preload: true,
-});
-
-const syne = Syne({
-  subsets: ["latin"],
-  variable: "--font-syne",
-  weight: ["500", "600", "700", "800"],
   display: "swap",
   preload: true,
 });
@@ -50,9 +42,7 @@ export const metadata: Metadata = {
     description: site.description,
   },
   icons: {
-    icon: [
-      { url: "/favicon.ico", sizes: "48x48" },
-    ],
+    icon: [{ url: "/favicon.ico", sizes: "48x48" }],
     apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
   },
   robots: { index: true, follow: true },
@@ -83,10 +73,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html
       lang="en-ZA"
-      className={`${dmSans.variable} ${syne.variable} min-h-svh scroll-smooth antialiased`}
+      className={`${dmSans.variable} min-h-svh scroll-smooth antialiased`}
     >
       <body
-        className={`${dmSans.variable} ${syne.variable} ${dmSans.className} flex min-h-svh flex-col bg-background text-foreground`}
+        className={`${dmSans.variable} ${dmSans.className} flex min-h-svh flex-col bg-background text-foreground`}
       >
         <script
           type="application/ld+json"
