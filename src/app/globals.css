@@ -276,7 +276,7 @@ button:focus-visible {
 }
 .assembly-field {
   position: relative;
-  width: min(25vw, 350px);
+  width: min(18vw, 350px);
   aspect-ratio: 1;
   margin: 60px 0 0;
 }
@@ -1009,7 +1009,7 @@ body:not(:has(.experience)) main {
     font-size: min(7.3vw, 12vh);
   }
   .assembly-field {
-    width: min(23vw, 32vh);
+    width: min(18vw, 32vh);
   }
   .assembly-lockup {
     font-size: 24px;
